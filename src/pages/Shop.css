@@ -1,0 +1,99 @@
+/* ===========================================================
+   SHOP & COLLECTION — Premium Minimalist
+   =========================================================== */
+
+/* Custom Dual Range Slider */
+.dual-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #1d4ed8;
+  border: 4px solid #ffffff;
+  cursor: pointer;
+  pointer-events: auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  margin-top: -8px; /* align center with track */
+  position: relative;
+  z-index: 10;
+}
+
+.dual-range::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #1d4ed8;
+  border: 4px solid #ffffff;
+  cursor: pointer;
+  pointer-events: auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+/* Base custom styles to hide tracks */
+.dual-range::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 4px;
+  cursor: pointer;
+  background: transparent;
+}
+.dual-range::-moz-range-track {
+  width: 100%;
+  height: 4px;
+  cursor: pointer;
+  background: transparent;
+}
+
+/* Custom Graph Bars Background for Price Filter */
+.price-graph-container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 50px;
+  padding: 0 5px;
+  gap: 2px;
+}
+
+.price-graph-bar {
+  flex: 1;
+  background: #e2e8f0;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  transition: background 0.3s ease;
+}
+
+.price-graph-bar.active {
+  background: #3b82f6;
+  opacity: 0.6;
+}
+
+/* Shop Layout Fixes */
+@media (max-width: 1280px) {
+  .shop-page .xl\:sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 3000;
+  }
+}
+
+/* Category Grid / Product Cards on Mobile */
+@media (max-width: 640px) {
+  .shop-page .grid {
+    gap: 2rem !important;
+    padding: 0 1rem;
+  }
+  
+  .shop-page .max-w-\[2200px\] {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 2rem;
+  }
+  
+  .shop-page h1 {
+    font-size: 2.25rem !important;
+  }
+}
+

@@ -1,0 +1,67 @@
+.global-loader-container {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+}
+
+.loader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0 20px;
+}
+
+.loader-text-wrapper {
+  display: flex;
+  gap: 0.2rem;
+}
+
+.loader-letter {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(3rem, 10vw, 6rem);
+  font-weight: 900;
+  color: #111;
+  text-transform: uppercase;
+  letter-spacing: clamp(4px, 1.5vw, 12px);
+  display: inline-block;
+}
+
+.loader-progress-container {
+  width: clamp(200px, 40vw, 400px);
+  height: 3px;
+  background: #f1f5f9;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.loader-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+  border-radius: 10px;
+}
+
+.loader-tagline {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.7rem, 2vw, 0.9rem);
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 480px) {
+  .loader-content {
+    gap: 1rem;
+  }
+  .loader-progress-container {
+    width: 150px;
+  }
+}

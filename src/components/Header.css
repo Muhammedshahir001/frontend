@@ -1,0 +1,341 @@
+/* ===========================================================
+   HEADER — Premium, Fully Responsive, All Devices
+   =========================================================== */
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 0.8rem 0;
+  z-index: 1000;
+  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.header.scrolled {
+  background: rgba(255, 255, 255, 0.97);
+  padding: 0.5rem 0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.nav-container {
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 90px;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.logo-img {
+  height: 75px; /* Base height */
+  width: auto;
+  transition: all 0.4s ease;
+}
+
+.header.scrolled .logo-img {
+  height: 65px;
+}
+
+/* ——— Desktop Navigation ——— */
+.desktop-nav {
+  display: none;
+  justify-content: center;
+  gap: 2.5rem;
+}
+
+.nav-link {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+  color: #111;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  opacity: 0.5;
+  transform: translateY(-1px);
+}
+
+/* ——— Nav Icons (Enhanced Size) ——— */
+.nav-icons {
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.icon-wrapper {
+  color: #111;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  text-decoration: none;
+  position: relative;
+}
+
+.icon-wrapper:hover {
+  transform: scale(1.1);
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.search-form {
+  overflow: hidden;
+  margin-right: 0.5rem;
+}
+
+.search-form input {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  outline: none;
+  background: #f8fafc;
+  transition: all 0.3s ease;
+}
+
+.search-form input:focus {
+  border-color: #3b82f6;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.mobile-search-form {
+  display: flex;
+  align-items: center;
+  background: #f1f5f9;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  gap: 0.75rem;
+}
+
+.mobile-search-form .search-icon {
+  color: #64748b;
+}
+
+.mobile-search-form input {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  width: 100%;
+  color: #1e293b;
+}
+
+.icon-label {
+  display: none; /* Desktop only */
+}
+
+/* Enhanced Cart Badge */
+.cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  background: #0047AB; /* Primary Color */
+  color: white;
+  font-size: 0.7rem; /* Bigger font */
+  font-weight: 800;
+  width: 20px; /* Bigger container */
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* ——— Mobile Components ——— */
+.mobile-menu-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 44px; /* Larger touch area */
+  height: 44px;
+}
+
+.mobile-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: 100%; /* Full width on small mobile */
+  height: 100vh;
+  background: #ffffff;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 10px 0 40px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+}
+
+@media (min-width: 480px) {
+  .mobile-overlay {
+    max-width: 360px;
+    padding: 2rem;
+  }
+}
+
+.mobile-overlay-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+.mobile-nav-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  overflow-y: auto;
+  padding-bottom: 2rem;
+}
+
+.mobile-nav-link {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #111;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 0.5rem 0;
+  transition: all 0.3s ease;
+}
+
+.mobile-nav-link:active {
+  color: #3b82f6;
+  padding-left: 0.5rem;
+}
+
+.mobile-nav-footer {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eee;
+  background: #fff;
+}
+
+.mobile-nav-link-sm {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #666;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.mobile-close-btn {
+  background: #f8fafc;
+  border: none;
+  cursor: pointer;
+  color: #111;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.mobile-close-btn:active {
+  background: #f1f5f9;
+  transform: scale(0.9);
+}
+
+/* ===========================================================
+   RESPONSIVE BREAKPOINTS
+   =========================================================== */
+
+@media (max-width: 767px) {
+  .nav-container {
+    min-height: 70px;
+    padding: 0 1rem;
+  }
+
+  .logo-img {
+    height: 45px;
+  }
+
+  .search-wrapper .icon-label {
+    display: none;
+  }
+  
+  .brand-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .nav-icons {
+    gap: 0.75rem;
+  }
+
+  .nav-icons .icon-wrapper:not(.cart-icon) {
+    display: none;
+  }
+
+  .mobile-menu-btn {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (min-width: 768px) {
+  .nav-container { padding: 0 2.5rem; }
+  .logo-img { height: 75px; }
+  .nav-icons { gap: 1.8rem; }
+  .icon-label {
+    display: inline-block;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+  }
+}
+
+@media (min-width: 1024px) {
+  .nav-container {
+    display: grid;
+    grid-template-columns: 250px 1fr 250px;
+    min-height: 90px;
+  }
+  .desktop-nav { display: flex; }
+  .mobile-menu-btn { display: none; }
+  .logo-img { height: 85px; }
+  .header.scrolled .logo-img { height: 70px; }
+}
+
+@media (min-width: 1400px) {
+  .nav-container { grid-template-columns: 300px 1fr 300px; padding: 0 4rem; }
+  .logo-img { height: 95px; }
+  .desktop-nav { gap: 4rem; }
+}

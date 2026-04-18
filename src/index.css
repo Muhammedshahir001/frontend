@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-blue: #2563eb;
+  --primary-color: #0047AB; /* For legacy support */
+  --bg-dark-blue: #001F54;
+  --text-dark: #111111;
+  --text-light: #ffffff;
+  --heading-font: 'Playfair Display', serif;
+  --body-font: 'Inter', sans-serif;
+  --nav-font: 'Inter', sans-serif;
+}
+
+html {
+  font-size: clamp(15px, 0.75vw + 12px, 18px);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  line-height: 1.55;
+  background-color: #fff;
+  overflow-x: hidden;
+  color: #0f172a;
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.2;
+}
+
+button, input, textarea, select {
+  font: inherit;
+}
+
+/* Custom Grid Utility */
+.product-grid-layout {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+@media (min-width: 1024px) {
+  .product-grid-layout {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+}
+
+@layer components {
+  .category-card-overlay {
+    @apply absolute inset-0 bg-black/20 transition-colors duration-500 group-hover:bg-black/40;
+  }
+  
+  .category-card-text {
+    @apply absolute inset-0 flex items-center justify-center text-white text-2xl md:text-3xl font-serif tracking-tight transition-transform duration-700 group-hover:scale-110;
+  }
+}
+
+/* Custom Premium Effects */
+.luxe-shadow {
+  box-shadow: 0 30px 60px rgba(0, 71, 171, 0.08);
+}
+
+.luxe-shadow-inset {
+  box-shadow: inset 4px 4px 10px rgba(0,0,0,0.1);
+}
+
+.btn-carved {
+  border-radius: 50px; /* Crucial for carved look */
+  transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+  letter-spacing: 0.15em;
+  @apply text-white;
+}
+
+/* Specific background and hover behavior */
+.product-card:hover .btn-carved {
+  @apply bg-[#0047AB]; /* Deep Blue on Hover */
+  box-shadow: inset 4px 4px 10px rgba(0,0,0,0.2);
+  transform: scale(0.98);
+}
