@@ -282,11 +282,11 @@
 
   .nav-container {
     min-height: 65px;
-    padding: 0 0.5rem; /* Reduced further to accommodate more icons */
+    padding: 0 0.5rem;
   }
 
   .logo-img {
-    height: 38px; /* Slightly smaller to fit center better with more icons */
+    height: 38px;
   }
 
   .header.scrolled .logo-img {
@@ -304,11 +304,35 @@
   }
 
   .nav-icons {
-    gap: 0.4rem; /* Tighter gap to fit user and search icons */
+    gap: 0.2rem; /* Even tighter gap for more icons */
+    padding-right: 0.2rem;
+  }
+
+  .icon-wrapper {
+    padding: 0.4rem; /* Touch area but compact */
   }
 
   .icon-wrapper span {
-    display: none;
+    display: none !important;
+  }
+
+  .profile-icon {
+    display: none !important; /* User icon hidden as requested */
+  }
+
+  /* Ensure cart badge is visible and properly positioned on mobile */
+  .cart-icon {
+    position: relative;
+    padding-right: 0.5rem !important; /* Extra room for badge */
+  }
+
+  .cart-badge {
+    top: -4px;
+    right: -2px;
+    width: 16px;
+    height: 16px;
+    font-size: 0.6rem;
+    border-width: 1.5px;
   }
 }
 
