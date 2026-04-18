@@ -187,10 +187,13 @@
   border: 1px solid var(--profile-border);
   box-shadow: var(--profile-shadow);
   transition: all 0.3s ease;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
+  display: flex; /* Changed from grid to flex for better responsive control */
   gap: 30px;
   align-items: center;
+}
+
+.order-main {
+  flex: 1;
 }
 
 .order-main h4 {
@@ -219,7 +222,16 @@
 
 .badge-shipped { background: #eff6ff; color: #2563eb; }
 .badge-delivered { background: #ecfdf5; color: #10b981; }
-.badge-returned { background: #fff1f2; color: #ef4444; }
+.activity-header {
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .activity-header {
+    margin-top: 30px;
+  }
+}
 
 /* Address Cards */
 .address-grid {
@@ -255,10 +267,18 @@
   margin-bottom: 16px;
 }
 
-.address-card p {
+.address-card p.address-details {
   color: var(--profile-text-muted);
   font-size: 20px; /* Big address text */
   line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 768px) {
+  .address-card p.address-details {
+    font-size: 16px;
+  }
 }
 
 .address-actions {
@@ -325,26 +345,60 @@
   }
 
   .user-avatar-wrapper {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
+    margin-bottom: 15px;
   }
 
   .user-avatar {
-    font-size: 36px;
-    border-radius: 28px;
+    font-size: 32px;
+    border-radius: 24px;
+  }
+
+  .user-info-card {
+    margin-bottom: 30px;
+    padding-bottom: 25px;
   }
 
   .user-info-card h3 {
-    font-size: 22px;
+    font-size: 20px;
+  }
+
+  .user-info-card p {
+    font-size: 14px;
+  }
+
+  .profile-nav {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .profile-nav::-webkit-scrollbar {
+    display: none;
   }
 
   .profile-nav button {
-    padding: 14px 16px;
-    font-size: 16px;
+    padding: 12px 16px;
+    font-size: 14px;
+    white-space: nowrap;
+    width: auto;
+    gap: 8px;
+  }
+
+  .profile-nav button.logout-btn {
+    margin-top: 0;
+    color: #ef4444;
   }
 
   .section-header h2 {
     font-size: 28px;
+  }
+
+  .section-header p {
+    font-size: 16px;
   }
 
   .profile-stats {
@@ -352,8 +406,39 @@
     gap: 16px;
   }
 
+  .order-card {
+    gap: 15px;
+    padding: 20px;
+  }
+
+  .order-icon-box {
+    display: none; /* Hide icon on small screens to save space */
+  }
+
+  .order-main h4 {
+    font-size: 18px;
+  }
+
+  .order-meta {
+    gap: 15px;
+    font-size: 14px;
+  }
+
   .address-grid {
     grid-template-columns: 1fr;
+  }
+
+  .address-card h4 {
+    font-size: 20px;
+  }
+
+  .address-card p {
+    font-size: 16px;
+  }
+
+  .add-address-btn {
+    padding: 20px;
+    font-size: 16px;
   }
 }
 
@@ -368,12 +453,47 @@
 
   .order-card {
     padding: 16px;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .order-meta {
     flex-direction: column;
     align-items: flex-start;
-    gap: 8px;
+    gap: 6px;
+  }
+
+  .status-badge {
+    align-self: flex-start;
+    margin-top: 10px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .address-modal {
+    padding: 25px 20px;
+    border-radius: 24px;
+  }
+
+  .modal-header h2 {
+    font-size: 22px;
+  }
+
+  .form-group label {
+    font-size: 15px;
+  }
+
+  .form-group input {
+    padding: 16px;
+    font-size: 16px;
+  }
+
+  .submit-address-btn {
+    padding: 18px;
+    font-size: 18px;
   }
 }
 

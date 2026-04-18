@@ -214,7 +214,7 @@ const Profile = () => {
                   </div>
                 </div>
 
-                <div className="section-header" style={{ marginTop: '50px', marginBottom: '20px' }}>
+                <div className="section-header activity-header">
                   <h3>Recent Activity</h3>
                 </div>
                 <div className="orders-list">
@@ -297,14 +297,14 @@ const Profile = () => {
                       <div className="address-card" key={idx}>
                         {idx === 0 && <span className="address-type-tag">Primary</span>}
                         <h4>Address {idx + 1}</h4>
-                        <p>
-                          <p style={{ fontSize: '18px' }}>{addr.street}</p>
-                          <p style={{ fontSize: '18px' }}>{addr.city}, {addr.state} {addr.zipCode}</p>
-                          <p style={{ fontSize: '18px' }}>{addr.country}</p>
+                        <p className="address-details">
+                          <span>{addr.street}</span>
+                          <span>{addr.city}, {addr.state} {addr.zipCode}</span>
+                          <span>{addr.country}</span>
                         </p>
                         <div className="address-actions">
-                          <button onClick={() => openEditModal(addr)} className="text-blue" style={{ fontSize: '16px' }}>Edit Details</button>
-                          <button onClick={() => handleDeleteAddress(addr._id)} className="text-red" style={{ fontSize: '16px' }}>Remove</button>
+                          <button onClick={() => openEditModal(addr)} className="text-blue">Edit Details</button>
+                          <button onClick={() => handleDeleteAddress(addr._id)} className="text-red">Remove</button>
                         </div>
                       </div>
                     ))
