@@ -214,6 +214,7 @@
   gap: 1.25rem;
   overflow-y: auto;
   padding-bottom: 2rem;
+  flex: 1; /* Allow content to grow and be scrollable */
 }
 
 .mobile-nav-link {
@@ -237,7 +238,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.85rem;
-  padding-top: 1.5rem;
+  padding: 1.5rem 0 3rem; /* Extra bottom padding for mobile browsers */
   border-top: 1px solid #eee;
   background: #fff;
 }
@@ -313,15 +314,15 @@
 
   .nav-container {
     min-height: 65px;
-    padding: 0 0.5rem; /* Reduced further to accommodate more icons */
+    padding: 0 1rem; /* Slightly more padding so icons aren't right at the edge */
   }
 
   .logo-img {
-    height: 38px; /* Slightly smaller to fit center better with more icons */
+    height: 35px; /* Slightly smaller for mobile */
   }
 
   .header.scrolled .logo-img {
-    height: 32px;
+    height: 30px;
   }
 
   .search-wrapper .icon-label {
@@ -335,7 +336,7 @@
   }
 
   .nav-icons {
-    gap: 0.75rem; /* Better spacing for Search, Logout, and Cart icons */
+    gap: 0.6rem; /* Slightly reduced gap */
   }
 
   .user-icon, .logout-icon {
@@ -343,26 +344,26 @@
   }
 
   .cart-icon {
-    margin-right: 5px; /* Room for the badge on mobile */
+    margin-right: 0; /* No margin since container padding is increased */
   }
 
   .cart-badge {
     position: absolute;
-    top: -6px;
-    right: -8px;
+    top: -5px;
+    right: -5px;
     background: #0047AB;
     color: white;
-    width: 18px; /* Slightly bigger for visibility */
-    height: 18px;
-    font-size: 0.7rem;
+    width: 17px;
+    height: 17px;
+    font-size: 0.65rem;
     font-weight: 800;
     border: 2px solid white;
     border-radius: 50%;
-    display: flex;
+    display: flex !important; /* Force visibility */
     align-items: center;
     justify-content: center;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    z-index: 10;
+    z-index: 100; /* Higher z-index */
   }
 
   .icon-wrapper span {
