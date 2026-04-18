@@ -33,8 +33,30 @@
 .footer-main-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 4rem; /* Increased space between sections */
+  gap: 3rem; /* Adjusted gap */
   align-items: start;
+}
+
+@media (max-width: 768px) {
+  .footer-main-grid {
+    text-align: center;
+  }
+  
+  .footer-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-brand-desc {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .footer-contact-list li {
+    justify-content: center;
+    text-align: center;
+  }
 }
 
 /* Every grid child aligns to start */

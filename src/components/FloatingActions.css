@@ -4,10 +4,10 @@
    Fully Responsive
    ============================================= */
 
-/* Left FAB Group */
-.fab-left {
+/* Right FAB Group (Combined) */
+.fab-right {
   position: fixed;
-  left: 1.25rem;
+  right: 1.25rem;
   bottom: 1.25rem;
   display: flex;
   flex-direction: column;
@@ -49,11 +49,8 @@
   animation: fab-pulse-blue 2.5s infinite 0.5s;
 }
 
-/* Scroll to Top — Blue, Bottom Right */
+/* Scroll to Top — Blue */
 .scroll-top-fab {
-  position: fixed;
-  right: 1.25rem;
-  bottom: 1.25rem;
   width: 52px;
   height: 52px;
   border-radius: 50%;
@@ -65,7 +62,6 @@
   box-shadow: 0 6px 20px rgba(0, 71, 171, 0.35);
   cursor: pointer;
   border: none;
-  z-index: 1000;
   transition: box-shadow 0.3s ease;
 }
 

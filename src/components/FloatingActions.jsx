@@ -19,18 +19,8 @@ const FloatingActions = () => {
   };
 
   return (
-    <>
-      {/* Left side — WhatsApp & Call */}
-      <div className="fab-container fab-left">
-        <a href="https://wa.me/9074881551" target="_blank" rel="noreferrer" className="fab whatsapp-fab">
-          <MessageCircle size={24} />
-        </a>
-        <a href="tel:+919074881551" className="fab call-fab">
-          <Phone size={24} />
-        </a>
-      </div>
-
-      {/* Right side — Scroll to Top */}
+    <div className="fab-right">
+      {/* Scroll to Top */}
       <AnimatePresence>
         {showScrollTop && (
           <motion.button
@@ -48,7 +38,15 @@ const FloatingActions = () => {
           </motion.button>
         )}
       </AnimatePresence>
-    </>
+
+      {/* WhatsApp & Call */}
+      <a href="https://wa.me/9074881551" target="_blank" rel="noreferrer" className="fab whatsapp-fab">
+        <MessageCircle size={24} />
+      </a>
+      <a href="tel:+919074881551" className="fab call-fab">
+        <Phone size={24} />
+      </a>
+    </div>
   );
 };
 

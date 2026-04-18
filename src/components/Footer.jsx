@@ -16,15 +16,15 @@ const Footer = () => {
     <footer className="bg-gradient-to-b from-white via-blue-100/50 to-blue-50/40 pt-24 pb-12 mt-14 border-t-2 border-blue-100 font-sans">
       <div className="max-w-[1400px] mx-auto px-5 sm:px-8 md:px-12 lg:px-16">
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 sm:gap-14 lg:gap-12 mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 sm:gap-14 lg:gap-12 mb-16 text-center md:text-left">
           
           {/* Brand Info */}
-          <motion.div className="flex flex-col items-start sm:col-span-2 lg:col-span-1" {...colAnimation(0)}>
+          <motion.div className="flex flex-col items-center md:items-start sm:col-span-2 lg:col-span-1" {...colAnimation(0)}>
             <img src="./logo/footer.png" alt="Logo" className="w-[190px] sm:w-[220px] lg:w-[210px] h-auto object-contain mb-7" />
-            <p className="text-slate-700 leading-8 mb-8 text-[1rem] sm:text-[1.05rem] pr-0 sm:pr-4 max-w-md">
+            <p className="text-slate-700 leading-8 mb-8 text-[1rem] sm:text-[1.05rem] pr-0 max-w-md mx-auto md:mx-0">
               Redefining high-end beauty. Our carefully curated collections are designed to elevate your everyday routines to extraordinary premium experiences.
             </p>
-            <div className="flex gap-3 sm:gap-3.5">
+            <div className="flex justify-center md:justify-start gap-3 sm:gap-3.5">
               {[
                 { icon: <Facebook size={18} />, label: 'Facebook' },
                 { icon: <Instagram size={18} />, label: 'Instagram' },
@@ -46,10 +46,10 @@ const Footer = () => {
           </motion.div>
 
           {/* Quick Links */}
-          <motion.div className="flex flex-col lg:pl-8" {...colAnimation(0.1)}>
+          <motion.div className="flex flex-col items-center md:items-start md:pl-8" {...colAnimation(0.1)}>
             <h4 className="text-slate-900 font-extrabold uppercase tracking-[0.18em] text-[0.95rem] sm:text-[1rem] mb-8 relative inline-block">
               Shop Collections
-              <span className="absolute -bottom-3 left-0 w-8 h-1 bg-blue-600 rounded-full"></span>
+              <span className="absolute -bottom-3 left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 w-8 h-1 bg-blue-600 rounded-full"></span>
             </h4>
             <ul className="space-y-5">
               {[
@@ -60,8 +60,8 @@ const Footer = () => {
                 { name: 'All Products', path: '/products' }
               ].map((item, idx) => (
                 <li key={idx}>
-                  <Link to={item.path} className="text-slate-700 hover:text-blue-700 text-[1rem] sm:text-[1.04rem] leading-7 flex items-center group transition-all font-medium">
-                    <ArrowRight size={14} className="opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 mr-2 transition-all duration-300 text-blue-600" />
+                  <Link to={item.path} className="text-slate-700 hover:text-blue-700 text-[1rem] sm:text-[1.04rem] leading-7 flex items-center justify-center md:justify-start group transition-all font-medium">
+                    <ArrowRight size={14} className="hidden md:block opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 mr-2 transition-all duration-300 text-blue-600" />
                     {item.name}
                   </Link>
                 </li>
@@ -70,16 +70,16 @@ const Footer = () => {
           </motion.div>
 
           {/* Support */}
-          <motion.div className="flex flex-col lg:pl-4" {...colAnimation(0.2)}>
+          <motion.div className="flex flex-col items-center md:items-start md:pl-4" {...colAnimation(0.2)}>
              <h4 className="text-slate-900 font-extrabold uppercase tracking-[0.18em] text-[0.95rem] sm:text-[1rem] mb-8 relative inline-block">
               Client Care
-              <span className="absolute -bottom-3 left-0 w-8 h-1 bg-blue-600 rounded-full"></span>
+              <span className="absolute -bottom-3 left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 w-8 h-1 bg-blue-600 rounded-full"></span>
             </h4>
             <ul className="space-y-5">
               {['Contact Us', 'Shipping Info', 'Returns & Exchanges', 'FAQ', 'About Us'].map((item, idx) => (
                 <li key={idx}>
-                  <Link to={`/${item.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-')}`} className="text-slate-700 hover:text-blue-700 text-[1rem] sm:text-[1.04rem] leading-7 flex items-center group transition-all font-medium">
-                    <ArrowRight size={14} className="opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 mr-2 transition-all duration-300 text-blue-600" />
+                  <Link to={`/${item.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-')}`} className="text-slate-700 hover:text-blue-700 text-[1rem] sm:text-[1.04rem] leading-7 flex items-center justify-center md:justify-start group transition-all font-medium">
+                    <ArrowRight size={14} className="hidden md:block opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 mr-2 transition-all duration-300 text-blue-600" />
                     {item}
                   </Link>
                 </li>
@@ -88,36 +88,36 @@ const Footer = () => {
           </motion.div>
 
           {/* Contact */}
-          <motion.div className="flex flex-col sm:col-span-2 lg:col-span-1" {...colAnimation(0.3)}>
+          <motion.div className="flex flex-col items-center md:items-start sm:col-span-2 lg:col-span-1" {...colAnimation(0.3)}>
              <h4 className="text-slate-900 font-extrabold uppercase tracking-[0.18em] text-[0.95rem] sm:text-[1rem] mb-8 relative inline-block">
               Get In Touch
-              <span className="absolute -bottom-3 left-0 w-8 h-1 bg-blue-600 rounded-full"></span>
+              <span className="absolute -bottom-3 left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 w-8 h-1 bg-blue-600 rounded-full"></span>
             </h4>
-            <ul className="space-y-7">
-              <li className="flex items-start gap-4 group">
+            <ul className="space-y-7 w-full">
+              <li className="flex flex-col md:flex-row items-center md:items-start gap-4 group">
                 <div className="w-12 h-12 rounded-xl bg-blue-100 border border-blue-200 flex items-center justify-center text-blue-700 shrink-0 mt-0.5 group-hover:bg-blue-700 group-hover:text-white transition-colors duration-300">
                   <MapPin size={18} />
                 </div>
-                <div>
+                <div className="text-center md:text-left">
                   <span className="block text-[0.72rem] font-bold text-slate-500 uppercase tracking-[0.14em] mb-1.5">Visit Us</span>
                   <span className="text-[1rem] text-slate-800 font-semibold leading-7">Heedy Sajin Land, Kadkkavoor 
 <br/>Thiruvanathapuram, Kerala</span>
                 </div>
               </li>
-              <li className="flex items-start gap-4 group">
+              <li className="flex flex-col md:flex-row items-center md:items-start gap-4 group">
                 <div className="w-12 h-12 rounded-xl bg-blue-100 border border-blue-200 flex items-center justify-center text-blue-700 shrink-0 group-hover:bg-blue-700 group-hover:text-white transition-colors duration-300">
                   <Phone size={18} />
                 </div>
-                <div>
+                <div className="text-center md:text-left">
                   <span className="block text-[0.72rem] font-bold text-slate-500 uppercase tracking-[0.14em] mb-1.5">Call Us</span>
                   <span className="text-[1rem] text-slate-800 font-semibold">+91 9074881551</span>
                 </div>
               </li>
-               <li className="flex items-start gap-4 group">
+               <li className="flex flex-col md:flex-row items-center md:items-start gap-4 group">
                 <div className="w-12 h-12 rounded-xl bg-blue-100 border border-blue-200 flex items-center justify-center text-blue-700 shrink-0 group-hover:bg-blue-700 group-hover:text-white transition-colors duration-300">
                   <Mail size={18} />
                 </div>
-                <div>
+                <div className="text-center md:text-left">
                   <span className="block text-[0.72rem] font-bold text-slate-500 uppercase tracking-[0.14em] mb-1.5">Email directly</span>
                   <span className="text-[1rem] text-slate-800 font-semibold break-all">infoheedy@gmail.com</span>
                 </div>
