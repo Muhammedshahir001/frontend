@@ -78,13 +78,13 @@ const Contact = () => {
     {
       icon: <Phone size={28} />,
       title: 'Call Us',
-      details: ['+91 98765 43210', 'Mon - Sat: 9AM - 7PM'],
+      details: ['+91 907 4881 551', 'Mon - Sat: 9AM - 7PM'],
       color: 'blue'
     },
     {
       icon: <Mail size={28} />,
       title: 'Email Us',
-      details: ['support@heedy.com', 'orders@heedy.com'],
+      details: [ 'infoheedy@gmail.com'],
       color: 'blue'
     },
     {

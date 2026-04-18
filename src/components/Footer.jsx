@@ -100,7 +100,8 @@ const Footer = () => {
                 </div>
                 <div>
                   <span className="block text-[0.72rem] font-bold text-slate-500 uppercase tracking-[0.14em] mb-1.5">Visit Us</span>
-                  <span className="text-[1rem] text-slate-800 font-semibold leading-7">123 Luxury Ave, Beverly Hills<br/>CA 90210</span>
+                  <span className="text-[1rem] text-slate-800 font-semibold leading-7">Heedy Sajin Land, Kadkkavoor 
+<br/>Thiruvanathapuram, Kerala</span>
                 </div>
               </li>
               <li className="flex items-start gap-4 group">
@@ -109,7 +110,7 @@ const Footer = () => {
                 </div>
                 <div>
                   <span className="block text-[0.72rem] font-bold text-slate-500 uppercase tracking-[0.14em] mb-1.5">Call Us</span>
-                  <span className="text-[1rem] text-slate-800 font-semibold">+1 (800) 123-4567</span>
+                  <span className="text-[1rem] text-slate-800 font-semibold">+91 9074881551</span>
                 </div>
               </li>
                <li className="flex items-start gap-4 group">
@@ -118,7 +119,7 @@ const Footer = () => {
                 </div>
                 <div>
                   <span className="block text-[0.72rem] font-bold text-slate-500 uppercase tracking-[0.14em] mb-1.5">Email directly</span>
-                  <span className="text-[1rem] text-slate-800 font-semibold break-all">concierge@lumiere.com</span>
+                  <span className="text-[1rem] text-slate-800 font-semibold break-all">infoheedy@gmail.com</span>
                 </div>
               </li>
             </ul>
