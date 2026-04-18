@@ -337,8 +337,8 @@ const Shop = () => {
             )}
           </div>
 
-          {/* 3 Items per row on large displays, 2 items on mobile */}
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-10 lg:gap-12">
+          {/* 3 Items per row on large displays, responsive */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-10 lg:gap-12">
             {visibleProducts.map((product, i) => (
                <ProductCard key={product._id || product.id || i} product={product} />
             ))}

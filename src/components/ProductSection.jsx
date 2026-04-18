@@ -16,8 +16,8 @@ const ProductSection = ({ title, products }) => {
           <div className="w-[40px] md:w-[60px] h-[3px] bg-slate-950 rounded-full"></div>
         </div>
 
-        {/* Fully Responsive Premium Grid - 3 items per row on desktop, 2 on mobile */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-10 lg:gap-12">
+        {/* Fully Responsive Premium Grid - 3 items per row on desktop */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-10 lg:gap-12">
           {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}

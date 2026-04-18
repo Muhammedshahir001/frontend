@@ -82,7 +82,7 @@
 /* Category Grid / Product Cards on Mobile */
 @media (max-width: 640px) {
   .shop-page .grid {
-    gap: 2rem !important;
+    gap: 1.25rem !important;
     padding: 0 1rem;
   }
   

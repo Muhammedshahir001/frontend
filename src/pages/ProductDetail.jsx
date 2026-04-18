@@ -399,7 +399,7 @@ const FALLBACK_GALLERY = [
               <p className="text-sm md:text-base uppercase font-black tracking-widest text-slate-400">Curated specifically for you</p>
             </div>
             
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-10 lg:gap-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-10 lg:gap-12">
               {relatedProducts.map(product => (
                 <ProductCard key={product._id || product.id} product={product} />
               ))}
