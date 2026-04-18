@@ -103,7 +103,7 @@ const Header = () => {
           </Link>
 
           {userInfo && (
-            <div className="icon-wrapper" onClick={() => {
+            <div className="icon-wrapper logout-icon" onClick={() => {
               dispatch(logout());
               navigate('/login');
             }} title="Logout">
@@ -155,13 +155,21 @@ const Header = () => {
 
             <div className="mobile-nav-footer">
               <Link to={profileRoute} className="mobile-nav-link-sm" onClick={() => setIsMobileMenuOpen(false)}>My Account</Link>
-              <Link to="/cart" className="mobile-nav-link-sm" onClick={() => setIsMobileMenuOpen(false)}>Cart ({cartCount})</Link>
+              <Link to="/cart" className="mobile-nav-link-sm" onClick={() => setIsMobileMenuOpen(false)}>
+                Cart <span className="sidebar-cart-count">({cartCount})</span>
+              </Link>
               {userInfo && (
-                <div className="mobile-nav-link-sm" style={{color: '#ef4444'}} onClick={() => {
-                  dispatch(logout());
-                  setIsMobileMenuOpen(false);
-                  navigate('/login');
-                }}>Sign Out</div>
+                <button 
+                  className="mobile-signout-btn" 
+                  onClick={() => {
+                    dispatch(logout());
+                    setIsMobileMenuOpen(false);
+                    navigate('/login');
+                  }}
+                >
+                  <LogOut size={18} />
+                  Sign Out
+                </button>
               )}
             </div>
           </motion.div>
