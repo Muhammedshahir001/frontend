@@ -124,20 +124,21 @@ const Shop = () => {
   return (
     <div className="shop-page bg-slate-50 min-h-screen font-sans">
       {/* Premium Header Banner */}
-      <section className="relative h-[25vh] md:h-[40vh] flex items-center justify-center overflow-hidden bg-[#111827]">
-        <div className="absolute inset-0 z-0 opacity-50">
+      <section className="relative h-[35vh] md:h-[40vh] flex items-center justify-center overflow-hidden bg-[#111827] mt-[80px] md:mt-0">
+        <div className="absolute inset-0 z-0 opacity-60">
           <img 
             src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?q=80&w=2080&auto=format&fit=crop" 
             alt="Shop Our Collection" 
             className="w-full h-full object-cover"
           />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/20" />
         </div>
         <div className="relative z-10 text-center px-4 max-w-3xl">
           <motion.span 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="block text-blue-300 text-[10px] md:text-sm font-extrabold uppercase tracking-[0.4em] mb-4"
+            className="block text-blue-300 text-[12px] md:text-sm font-extrabold uppercase tracking-[0.4em] mb-4 drop-shadow-md"
           >
             Curated For You
           </motion.span>
@@ -145,7 +146,7 @@ const Shop = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-3xl md:text-6xl font-serif text-white mb-4 drop-shadow-xl"
+            className="text-4xl md:text-6xl font-serif text-white mb-4 drop-shadow-2xl font-bold"
           >
             Our Collection
           </motion.h1>

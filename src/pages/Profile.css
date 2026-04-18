@@ -15,8 +15,14 @@
 .profile-page {
   min-height: 100vh;
   background-color: var(--profile-bg);
-  padding: 120px 24px 60px;
+  padding: 160px 24px 60px; /* Increased top padding for desktop */
   font-family: 'Inter', -apple-system, system-ui, sans-serif;
+}
+
+@media (max-width: 1024px) {
+  .profile-page {
+    padding-top: 140px;
+  }
 }
 
 .profile-container {
@@ -337,7 +343,7 @@
 
 @media (max-width: 768px) {
   .profile-page {
-    padding: 100px 16px 40px;
+    padding: 120px 16px 40px; /* Increased from 100px to avoid header overlap */
   }
 
   .profile-sidebar {
@@ -444,7 +450,7 @@
 
 @media (max-width: 480px) {
   .profile-page {
-    padding: 90px 12px 30px;
+    padding: 110px 12px 30px; /* Increased from 90px to avoid header overlap */
   }
 
   .section-header h2 {

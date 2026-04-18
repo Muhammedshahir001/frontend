@@ -10,9 +10,21 @@
 
 .cart-page {
   min-height: 100vh;
-  padding-top: 100px;
+  padding-top: 140px; /* Increased for header */
   background-color: #fafafa;
   font-family: 'Inter', sans-serif;
+}
+
+@media (max-width: 768px) {
+  .cart-page {
+    padding-top: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cart-page {
+    padding-top: 90px;
+  }
 }
 
 .cart-container {

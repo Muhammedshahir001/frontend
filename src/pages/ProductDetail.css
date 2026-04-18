@@ -46,7 +46,7 @@
 /* Product Detail Mobile Optimizations */
 @media (max-width: 1024px) {
   .product-detail-page {
-    padding-top: 100px !important;
+    padding-top: 140px !important; /* Increased for header */
   }
   
   .product-detail-page .pd-container {
@@ -58,9 +58,15 @@
   }
 }
 
+@media (max-width: 768px) {
+  .product-detail-page {
+    padding-top: 110px !important; /* Increased for header */
+  }
+}
+
 @media (max-width: 640px) {
   .product-detail-page {
-    padding-top: 80px !important;
+    padding-top: 100px !important; /* Increased for header */
   }
   
   .product-detail-page .pd-container {

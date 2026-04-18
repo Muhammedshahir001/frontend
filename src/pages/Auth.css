@@ -15,8 +15,20 @@
   justify-content: center;
   position: relative;
   overflow: hidden;
-  padding: 100px 24px 60px; /* Increased top padding to 100px */
+  padding: 120px 24px 60px; /* Increased top padding for header */
   background: #f8fafc;
+}
+
+@media (max-width: 768px) {
+  .auth-page {
+    padding-top: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-page {
+    padding-top: 90px;
+  }
 }
 
 .auth-bg-container {
