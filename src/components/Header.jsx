@@ -98,25 +98,22 @@ const Header = () => {
             </div>
           </div>
           
-          <Link to={profileRoute} className="icon-wrapper profile-icon">
+          <Link to={profileRoute} className="icon-wrapper user-icon">
             <User size={22} strokeWidth={2} />
-            <span className="icon-label">Account</span>
           </Link>
 
           {userInfo && (
-            <div className="icon-wrapper logout-icon" onClick={() => {
+            <div className="icon-wrapper" onClick={() => {
               dispatch(logout());
               navigate('/login');
             }} title="Logout">
               <LogOut size={22} strokeWidth={2} />
-              <span className="icon-label">Sign Out</span>
             </div>
           )}
 
           <Link to="/cart" className="icon-wrapper cart-icon">
             <ShoppingBag size={22} strokeWidth={2} />
-            <span className="icon-label">Bag</span>
-            {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
+            <span className="cart-badge">{cartCount}</span>
           </Link>
         </div>
       </div>
