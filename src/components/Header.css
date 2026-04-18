@@ -317,9 +317,9 @@
     padding: 0 1rem; /* Slightly more padding so icons aren't right at the edge */
   }
 
-  .logo-img {
-    height: 35px; /* Slightly smaller for mobile */
-  }
+  /* .logo-img {
+    height: 35px; 
+  } */
 
   .header.scrolled .logo-img {
     height: 30px;
