@@ -281,16 +281,16 @@
   }
 
   .nav-container {
-    min-height: 65px; /* Reduced further */
-    padding: 0 0.75rem;
+    min-height: 65px;
+    padding: 0 0.5rem; /* Reduced further to accommodate more icons */
   }
 
   .logo-img {
-    height: 40px; /* Smaller mobile logo */
+    height: 38px; /* Slightly smaller to fit center better with more icons */
   }
 
   .header.scrolled .logo-img {
-    height: 35px;
+    height: 32px;
   }
 
   .search-wrapper .icon-label {
@@ -304,19 +304,18 @@
   }
 
   .nav-icons {
-    gap: 0.5rem; /* Tighter spacing */
+    gap: 0.4rem; /* Tighter gap to fit user and search icons */
   }
 
   .icon-wrapper span {
-    display: none; /* Hide labels on mobile icons */
-  }
-
-  .mobile-menu-btn {
-    width: 40px;
-    height: 40px;
+    display: none;
   }
 }
 
+.mobile-menu-btn {
+  width: 40px;
+  height: 40px;
+}
 
 
 @media (min-width: 768px) {
