@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
-import { Mail, Lock, ArrowRight, UserPlus, LogIn } from 'lucide-react';
+import { Mail, Lock, ArrowRight, UserPlus, LogIn, Eye, EyeOff } from 'lucide-react';
 import axios from 'axios';
 import { setCredentials } from '../store/authSlice';
 import { fetchCart } from '../store/cartSlice';
@@ -17,6 +17,7 @@ const Login = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -130,13 +131,22 @@ const Login = () => {
 
               <motion.div variants={itemVariants} className="auth-input-group">
                 <label>Password</label>
-                <input
-                  type="password"
-                  placeholder="••••••••"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
+                <div className="auth-password-wrapper">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="••••••••"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                  <button 
+                    type="button" 
+                    className="auth-password-toggle"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                  </button>
+                </div>
               </motion.div>
 
               <motion.button 

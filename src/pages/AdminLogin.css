@@ -72,6 +72,24 @@
   align-items: center;
 }
 
+.password-toggle {
+  position: absolute;
+  right: 16px;
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.password-toggle:hover {
+  color: #2563eb;
+}
+
 .input-icon {
   position: absolute;
   left: 16px;

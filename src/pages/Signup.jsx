@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { motion, AnimatePresence } from 'framer-motion';
-import { User, Mail, Phone, Lock, Home, MapPin, Globe, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { User, Mail, Phone, Lock, Home, MapPin, Globe, ArrowRight, CheckCircle2, Eye, EyeOff } from 'lucide-react';
 import axios from 'axios';
 import { GoogleLogin } from '@react-oauth/google';
 import { setCredentials } from '../store/authSlice';
@@ -44,10 +44,14 @@ const Signup = () => {
     visible: { opacity: 1, x: 0, transition: { duration: 0.5 } }
   };
 
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const [form, setForm] = useState({
     name: '',
     email: '',
     password: '',
+    confirmPassword: '',
     phone: '',
     street: '',
     city: '',
@@ -63,6 +67,12 @@ const Signup = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
     setError('');
+
+    if (form.password !== form.confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -200,9 +210,46 @@ const Signup = () => {
                     </div>
                   </motion.div>
 
-                  <motion.div variants={itemVariants} className="auth-input-group">
-                    <label>Password</label>
-                    <input type="password" value={form.password} onChange={(e) => updateField('password', e.target.value)} placeholder="Minimum 6 characters" minLength={6} required />
+                  <motion.div variants={itemVariants} className="auth-grid-two">
+                    <div className="auth-input-group">
+                      <label>Password</label>
+                      <div className="auth-password-wrapper">
+                        <input 
+                          type={showPassword ? "text" : "password"} 
+                          value={form.password} 
+                          onChange={(e) => updateField('password', e.target.value)} 
+                          placeholder="Minimum 6 characters" 
+                          minLength={6} 
+                          required 
+                        />
+                        <button 
+                          type="button" 
+                          className="auth-password-toggle"
+                          onClick={() => setShowPassword(!showPassword)}
+                        >
+                          {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                        </button>
+                      </div>
+                    </div>
+                    <div className="auth-input-group">
+                      <label>Confirm Password</label>
+                      <div className="auth-password-wrapper">
+                        <input 
+                          type={showConfirmPassword ? "text" : "password"} 
+                          value={form.confirmPassword} 
+                          onChange={(e) => updateField('confirmPassword', e.target.value)} 
+                          placeholder="Repeat your password" 
+                          required 
+                        />
+                        <button 
+                          type="button" 
+                          className="auth-password-toggle"
+                          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        >
+                          {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                        </button>
+                      </div>
+                    </div>
                   </motion.div>
 
                   <motion.div variants={itemVariants} className="auth-divider"><span>Address (Optional)</span></motion.div>
