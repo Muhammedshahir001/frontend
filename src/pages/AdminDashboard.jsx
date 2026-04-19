@@ -18,7 +18,19 @@ const AdminDashboard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('overview');
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth > 768);
+  
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768) {
+        setIsSidebarOpen(true);
+      } else {
+        setIsSidebarOpen(false);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   
   // Data States
   const [products, setProducts] = useState([]);
@@ -411,9 +423,14 @@ const AdminDashboard = () => {
   return (
     <div className="admin-layout">
       {/* Mobile Menu Toggle */}
-      <button className="mobile-toggle" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
-        <Menu size={24} />
+      <button className={`mobile-toggle ${isSidebarOpen ? 'active' : ''}`} onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+        {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
+
+      {/* Sidebar Overlay for Mobile */}
+      {isSidebarOpen && (
+        <div className="sidebar-overlay" onClick={() => setIsSidebarOpen(false)} />
+      )}
 
       {/* Modern Sidebar */}
       <aside className={`admin-sidebar-new ${isSidebarOpen ? 'open' : ''}`}>
@@ -422,6 +439,9 @@ const AdminDashboard = () => {
             <div className="logo-icon">H</div>
             <span>HEEDY ADMIN</span>
           </div>
+          <button className="sidebar-close-mobile" onClick={() => setIsSidebarOpen(false)}>
+            <X size={24} />
+          </button>
         </div>
 
         <nav className="sidebar-nav">
@@ -429,7 +449,10 @@ const AdminDashboard = () => {
             <button 
               key={item.id}
               className={`nav-btn ${activeTab === item.id ? 'active' : ''}`}
-              onClick={() => setActiveTab(item.id)}
+              onClick={() => {
+                setActiveTab(item.id);
+                if (window.innerWidth <= 768) setIsSidebarOpen(false);
+              }}
             >
               {item.icon}
               <span>{item.label}</span>
