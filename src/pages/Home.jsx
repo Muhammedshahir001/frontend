@@ -29,7 +29,7 @@ const Home = () => {
     const fetchData = async () => {
       try {
         const { data: catData } = await axios.get('/api/categories');
-        const mappedCats = catData.filter(c => c.isActive).map((cat) => ({
+        const mappedCats = catData.filter(c => c.isActive).slice(0, 3).map((cat) => ({
           ...cat,
           image: cat.image || '/images/placeholder.jpg'
         }));
@@ -69,28 +69,17 @@ const Home = () => {
             </div>
           </FadeInWhenVisible>
           
-          {/* Categories View: Swiper on Mobile, Flex Strip/Grid on Desktop */}
+          {/* Categories View: Swiper on Mobile, Flex Strip on Desktop */}
           <div className="px-4 md:px-0">
             {categories.length > 0 ? (
               <>
-                {/* Desktop View (Flexible Strip/Grid) */}
-                 <div 
-                   className="hidden md:grid w-full h-auto min-h-[500px] md:gap-0"
-                   style={{ 
-                     gridTemplateColumns: categories.length <= 4 
-                       ? `repeat(${categories.length}, 1fr)` 
-                       : 'repeat(auto-fill, minmax(300px, 1fr))' 
-                   }}
-                 >
-                   {categories.map((cat, idx) => (
+                {/* Desktop View (Flex Strip) */}
+                <div className="hidden md:flex flex-row w-full h-[500px] md:gap-0">
+                  {categories.map((cat) => (
                     <Link 
                       key={cat._id || cat.name} 
                       to={`/products?category=${cat.name}`} 
-                      className={`relative group overflow-hidden h-[500px] border-white/10 ${
-                        categories.length <= 4 
-                          ? 'border-r last:border-0' 
-                          : 'border'
-                      }`}
+                      className="relative flex-1 group overflow-hidden md:h-full md:border-r border-white/10 last:border-0 md:rounded-none"
                     >
                       <motion.img 
                         src={cat.image} 
@@ -154,10 +143,10 @@ const Home = () => {
             )}
           </div>
           
-          {/* Desktop Bottom Labels */}
-          <div className="hidden md:flex flex-wrap justify-center gap-x-12 gap-y-4 py-8 border-b border-gray-100">
+          {/* Mobile Bottom Labels (Matching your reference) */}
+          <div className="hidden md:flex justify-around py-6 border-b border-gray-100">
             {categories.map((cat) => (
-              <span key={cat.name} className="text-[11px] uppercase tracking-[0.3em] font-extrabold text-slate-400 hover:text-blue-600 transition-colors cursor-default">
+              <span key={cat.name} className="text-[10px] uppercase tracking-widest font-bold text-slate-400">
                 {cat.name}
               </span>
             ))}

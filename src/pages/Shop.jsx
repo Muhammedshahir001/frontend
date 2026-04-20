@@ -122,42 +122,12 @@ const Shop = () => {
   }
 
   return (
-    <div className="shop-page bg-slate-50 min-h-screen font-sans">
-      {/* Premium Header Banner */}
-      <section className="shop-banner relative flex items-center justify-center overflow-hidden bg-[#111827] mt-[90px]">
-        <div className="absolute inset-0 z-0">
-          <img 
-            src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?q=80&w=2080&auto=format&fit=crop" 
-            alt="Shop Our Collection" 
-            className="w-full h-full object-cover opacity-60"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/20" />
-        </div>
-        <div className="relative z-10 text-center px-4 max-w-3xl py-16 md:py-24">
-          <motion.span 
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="block text-blue-300 text-[12px] md:text-sm font-extrabold uppercase tracking-[0.4em] mb-4 drop-shadow-md"
-          >
-            Curated For You
-          </motion.span>
-          <motion.h1 
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl md:text-6xl font-serif text-white mb-4 drop-shadow-2xl font-bold"
-          >
-            Our Collection
-          </motion.h1>
-        </div>
-      </section>
-
+    <div className="shop-page bg-slate-50 min-h-screen font-sans pt-[80px]">
       {/* Main Shop Container */}
-      <div className="w-full max-w-[2200px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 2xl:px-16 py-8 md:py-16 flex flex-col xl:flex-row gap-8 lg:gap-12 min-h-0">
+      <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 md:px-8 xl:px-10 py-6 md:py-10 flex flex-col xl:flex-row gap-8 lg:gap-12 min-h-0">
         
         {/* Mobile Filter Toggle */}
-        <div className="xl:hidden mb-4 sticky top-[90px] z-[100] bg-slate-50/80 backdrop-blur-md py-2">
+        <div className="xl:hidden mb-4 sticky top-[80px] z-[100] bg-slate-50/80 backdrop-blur-md py-2">
           <button 
             onClick={() => setIsSidebarOpen(true)}
             className="w-full bg-white border border-slate-200 py-4 px-6 rounded-2xl flex items-center justify-between font-bold text-slate-800 shadow-sm"
@@ -184,7 +154,7 @@ const Shop = () => {
         </AnimatePresence>
 
         {/* Left Sidebar - Filters */}
-        <aside className={`fixed xl:sticky top-0 xl:top-[120px] left-0 h-full xl:h-auto w-[85%] sm:w-[400px] xl:w-[350px] 2xl:w-[380px] bg-white z-[2001] xl:z-auto transition-transform duration-500 xl:translate-x-0 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} xl:rounded-[32px] border-r xl:border border-slate-100 shadow-[0_12px_40px_-15px_rgba(0,0,0,0.06)] overflow-y-auto`}>
+        <aside className={`fixed xl:sticky top-0 xl:top-[110px] left-0 h-full xl:h-[calc(100vh-140px)] w-[85%] sm:w-[400px] xl:w-[300px] 2xl:w-[340px] bg-white z-[2001] xl:z-auto transition-transform duration-500 xl:translate-x-0 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} xl:rounded-[24px] border-r xl:border border-slate-100 shadow-[0_12px_40px_-15px_rgba(0,0,0,0.06)] overflow-y-auto custom-scrollbar`}>
           <div className="p-8 md:p-10">
              <div className="flex items-center justify-between mb-8 pb-6 border-b border-slate-100">
                <h2 className="text-xl md:text-2xl font-black text-slate-900 uppercase tracking-widest">Filters</h2>
@@ -319,7 +289,35 @@ const Shop = () => {
 
         {/* Right Section - Products */}
         <div className="flex-1 min-w-0">
-          {/* Top Bar Summary */}
+          {/* Premium Header Banner moved here for alignment */}
+          <section className="shop-banner relative flex items-center justify-center overflow-hidden bg-[#111827] rounded-[24px] mb-8">
+            <div className="absolute inset-0 z-0">
+              <img 
+                src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?q=80&w=2080&auto=format&fit=crop" 
+                alt="Shop Our Collection" 
+                className="w-full h-full object-cover opacity-60"
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/20" />
+            </div>
+            <div className="relative z-10 text-center px-4 py-16 md:py-24 flex flex-col items-center justify-center">
+              <motion.span 
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="block text-blue-300 text-[12px] md:text-sm font-extrabold uppercase tracking-[0.4em] mb-4 drop-shadow-md"
+              >
+                Curated For You
+              </motion.span>
+              <motion.h1 
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-2 drop-shadow-2xl font-bold"
+              >
+                Our Collection
+              </motion.h1>
+            </div>
+          </section>
           <div className="bg-white rounded-[24px] p-5 md:px-8 md:py-7 mb-8 md:mb-10 shadow-sm border border-slate-100 flex flex-col sm:flex-row justify-between items-center gap-5">
             <p className="text-lg md:text-xl text-slate-600 font-medium">
               Showing
@@ -339,7 +337,7 @@ const Shop = () => {
           </div>
 
           {/* 3 Items per row on large displays, responsive */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-10 lg:gap-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-3 gap-6 sm:gap-10 lg:gap-12">
             {visibleProducts.map((product, i) => (
                <ProductCard key={product._id || product.id || i} product={product} />
             ))}

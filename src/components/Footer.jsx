@@ -16,7 +16,7 @@ const Footer = () => {
     <footer className="bg-gradient-to-b from-white via-blue-100/50 to-blue-50/40 pt-24 pb-12 mt-14 border-t-2 border-blue-100 font-sans">
       <div className="max-w-[1400px] mx-auto px-5 sm:px-8 md:px-12 lg:px-16">
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 sm:gap-14 lg:gap-12 mb-16 text-left">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12 sm:gap-14 lg:gap-12 mb-16 text-left">
           
           {/* Brand Info */}
           <motion.div className="flex flex-col items-start sm:col-span-2 lg:col-span-1" {...colAnimation(0)}>

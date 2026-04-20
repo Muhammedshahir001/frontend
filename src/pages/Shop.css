@@ -71,16 +71,30 @@
 .shop-page {
   background-color: var(--profile-bg);
   min-height: 100vh;
-  padding-top: 0;
+}
+
+/* Custom Scrollbar for Sidebar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #cbd5e1;
+}
+
+.shop-banner {
+  min-height: 200px;
 }
 
 .shop-banner img {
    transform: scale(1);
    transition: transform 0.5s ease;
- }
- 
- .shop-banner {
-   min-height: 200px;
  }
 
 @media (max-width: 1024px) {

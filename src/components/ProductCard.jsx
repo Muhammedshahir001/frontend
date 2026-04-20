@@ -88,7 +88,7 @@ const ProductCard = ({ product }) => {
       initial={{ opacity: 0, y: 15 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="group bg-white flex flex-col h-full rounded-[20px] md:rounded-[24px] overflow-hidden border border-slate-100 transition-all duration-500 ease-in-out hover:-translate-y-2 md:hover:-translate-y-3 hover:shadow-[0_20px_40px_-10px_rgba(15,23,42,0.12)] md:hover:shadow-[0_30px_60px_-15px_rgba(15,23,42,0.15)] relative shadow-[0_8px_20px_-8px_rgba(0,0,0,0.06)] md:shadow-[0_12px_30px_-10px_rgba(0,0,0,0.08)] w-full max-w-[340px] md:max-w-[480px] mx-auto"
+      className="group bg-white flex flex-col h-full rounded-[20px] md:rounded-[24px] overflow-hidden border border-slate-100 transition-all duration-500 ease-in-out hover:-translate-y-2 md:hover:-translate-y-3 hover:shadow-[0_20px_40px_-10px_rgba(15,23,42,0.12)] md:hover:shadow-[0_30px_60px_-15px_rgba(15,23,42,0.15)] relative shadow-[0_8px_20px_-8px_rgba(0,0,0,0.06)] md:shadow-[0_12px_30px_-10px_rgba(0,0,0,0.08)] w-full max-w-[340px] md:max-w-[440px] mx-auto"
       onMouseEnter={() => {
         setActiveImageIndex(hoverImageIndex);
       }}
