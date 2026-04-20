@@ -186,7 +186,7 @@ const Home = () => {
         <div className="space-y-4">
           <span className="text-blue-300 text-xs font-bold uppercase tracking-[0.4em]">Our Scientific Heritage</span>
           <h2 className="text-4xl md:text-6xl font-serif text-white leading-tight">
-            Why Choose <span className="italic">Lumière</span>
+            Why Choose <span className="italic">Heedy</span>
           </h2>
         </div>
         

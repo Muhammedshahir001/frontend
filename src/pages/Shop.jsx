@@ -124,7 +124,7 @@ const Shop = () => {
   return (
     <div className="shop-page bg-slate-50 min-h-screen font-sans pt-[80px]">
       {/* Main Shop Container */}
-      <div className="w-full max-w-[1700px] mx-auto px-4 sm:px-6 md:px-8 xl:px-12 py-4 md:py-8 flex flex-col xl:flex-row gap-8 lg:gap-12 min-h-0">
+      <div className="w-full max-w-[1700px] mx-auto px-4 sm:px-6 md:px-8 xl:px-12 py-4 md:py-8 flex flex-col xl:flex-row gap-6 lg:gap-8 xl:gap-10 min-h-0">
         
         {/* Mobile Filter Toggle */}
         <div className="xl:hidden mb-2 sticky top-[80px] z-[100] bg-slate-50/80 backdrop-blur-md py-2">
@@ -154,14 +154,14 @@ const Shop = () => {
         </AnimatePresence>
 
         {/* Left Sidebar - Filters */}
-        <aside className={`fixed xl:sticky top-0 xl:top-[100px] left-0 h-full xl:h-[calc(100vh-120px)] w-[85%] sm:w-[360px] xl:w-[320px] 2xl:w-[350px] bg-white z-[2001] xl:z-auto transition-transform duration-500 xl:translate-x-0 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} xl:rounded-[24px] border-r xl:border border-slate-100 shadow-[0_12px_40px_-15px_rgba(0,0,0,0.06)] overflow-y-auto custom-scrollbar`}>
-          <div className="p-6 md:p-8">
-             <div className="flex items-center justify-between mb-8 pb-4 border-b border-slate-100">
-               <h2 className="text-xl md:text-2xl font-black text-slate-900 uppercase tracking-widest">Filters</h2>
+        <aside className={`fixed xl:sticky top-0 xl:top-[110px] left-0 h-full xl:h-[calc(100vh-140px)] w-[85%] sm:w-[340px] xl:w-[280px] 2xl:w-[320px] bg-white z-[2001] xl:z-auto transition-transform duration-500 xl:translate-x-0 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} xl:rounded-[24px] border-r xl:border border-slate-100 shadow-[0_12px_40px_-15px_rgba(0,0,0,0.06)] overflow-y-auto custom-scrollbar`}>
+          <div className="p-5 md:p-7">
+             <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-100">
+               <h2 className="text-base md:text-lg font-black text-slate-900 uppercase tracking-widest">Filters</h2>
                <div className="flex items-center gap-4">
                  <button 
                    onClick={resetFilters}
-                   className="text-xs md:text-sm uppercase tracking-widest font-bold text-blue-600 hover:text-blue-800 transition-colors"
+                   className="text-[10px] md:text-xs uppercase tracking-widest font-bold text-blue-600 hover:text-blue-800 transition-colors"
                  >
                    Clear
                  </button>
@@ -172,12 +172,12 @@ const Shop = () => {
              </div>
              
              {/* Category Filter */}
-             <div className="mb-10">
-                <h3 className="text-[13px] font-black uppercase tracking-[0.2em] text-slate-400 mb-6">Shop By Category</h3>
-                <div className="flex flex-col gap-2.5">
+             <div className="mb-8">
+                <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-5">Shop By Category</h3>
+                <div className="flex flex-col gap-2">
                    <button 
                      onClick={() => setCategoryFilter('')}
-                     className={`text-left px-5 py-3.5 rounded-[14px] text-base font-bold transition-all duration-300 ${categoryFilter === '' ? 'bg-[#111827] text-white shadow-lg shadow-slate-900/20' : 'bg-[#f4f6fa] text-slate-600 hover:bg-blue-50 hover:text-blue-800'}`}
+                     className={`text-left px-4 py-3 rounded-[12px] text-sm font-bold transition-all duration-300 ${categoryFilter === '' ? 'bg-[#111827] text-white shadow-lg shadow-slate-900/20' : 'bg-[#f4f6fa] text-slate-600 hover:bg-blue-50 hover:text-blue-800'}`}
                    >
                      All Categories
                    </button>
@@ -185,7 +185,7 @@ const Shop = () => {
                      <button 
                        key={c._id || c.id || i}
                        onClick={() => setCategoryFilter(c.name)}
-                       className={`text-left px-5 py-3.5 rounded-[14px] text-base font-bold transition-all duration-300 ${categoryFilter === c.name ? 'bg-[#111827] text-white shadow-lg shadow-slate-900/20' : 'bg-[#f4f6fa] text-slate-600 hover:bg-blue-50 hover:text-blue-800'}`}
+                       className={`text-left px-4 py-3 rounded-[12px] text-sm font-bold transition-all duration-300 ${categoryFilter === c.name ? 'bg-[#111827] text-white shadow-lg shadow-slate-900/20' : 'bg-[#f4f6fa] text-slate-600 hover:bg-blue-50 hover:text-blue-800'}`}
                      >
                        {c.name}
                      </button>
@@ -195,7 +195,7 @@ const Shop = () => {
 
              {/* Price Filter with Graphic Graph Line */}
              <div>
-                <h3 className="text-[13px] font-black uppercase tracking-[0.2em] text-slate-400 mb-6">Price Range</h3>
+                <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-5">Price Range</h3>
                 <div className="pt-2">
                   
                   {/* Graph visual */}
@@ -250,7 +250,7 @@ const Shop = () => {
                   {/* Input Fields */}
                   <div className="flex items-center gap-3 mt-8 mb-6">
                     <div className="flex-1 bg-[#f4f6fa] border border-slate-200 rounded-[12px] p-2.5 px-4 shadow-inner">
-                      <label className="text-[10px] uppercase font-bold text-slate-400 mb-1 block">Min (₹)</label>
+                      <label className="text-[9px] uppercase font-bold text-slate-400 mb-1 block">Min (₹)</label>
                       <input 
                         type="number" 
                         value={localMinPrice} 
@@ -258,12 +258,12 @@ const Shop = () => {
                         max={absoluteMax}
                         step={priceStep}
                         onChange={(e) => setLocalMinPrice(Math.min(clampPrice(e.target.value), localMaxPrice))}
-                        className="w-full border-none bg-transparent text-lg font-black text-[#111827] focus:outline-none"
+                        className="w-full border-none bg-transparent text-base font-black text-[#111827] focus:outline-none"
                       />
                     </div>
                     <div className="text-slate-300 font-bold text-lg">-</div>
                     <div className="flex-1 bg-[#f4f6fa] border border-slate-200 rounded-[12px] p-2.5 px-4 shadow-inner">
-                      <label className="text-[10px] uppercase font-bold text-slate-400 mb-1 block">Max (₹)</label>
+                      <label className="text-[9px] uppercase font-bold text-slate-400 mb-1 block">Max (₹)</label>
                       <input 
                         type="number" 
                         value={localMaxPrice} 
@@ -271,14 +271,14 @@ const Shop = () => {
                         max={absoluteMax}
                         step={priceStep}
                         onChange={(e) => setLocalMaxPrice(Math.max(clampPrice(e.target.value), localMinPrice))}
-                        className="w-full border-none bg-transparent text-lg font-black text-[#111827] focus:outline-none"
+                        className="w-full border-none bg-transparent text-base font-black text-[#111827] focus:outline-none"
                       />
                     </div>
                   </div>
                   
                   <button 
                     onClick={applyPriceFilter}
-                    className="w-full bg-[#111827] text-white py-4 rounded-[14px] text-sm font-bold uppercase tracking-widest transition-all duration-300 hover:bg-blue-600 hover:shadow-lg hover:shadow-blue-600/30 active:scale-[0.98]"
+                    className="w-full bg-[#111827] text-white py-4 rounded-[14px] text-xs font-bold uppercase tracking-widest transition-all duration-300 hover:bg-blue-600 hover:shadow-lg hover:shadow-blue-600/30 active:scale-[0.98]"
                   >
                     Apply Filter
                   </button>
@@ -312,19 +312,19 @@ const Shop = () => {
                  initial={{ opacity: 0, y: 10 }}
                  animate={{ opacity: 1, y: 0 }}
                  transition={{ duration: 0.6, delay: 0.1 }}
-                 className="text-3xl md:text-4xl lg:text-5xl font-serif text-white mb-1 drop-shadow-2xl font-bold"
+                 className="text-2xl md:text-3xl lg:text-4xl font-serif text-white mb-1 drop-shadow-2xl font-bold"
                >
                  Our Collection
                </motion.h1>
              </div>
            </section>
 
-           <div className="bg-white rounded-[20px] p-4 md:px-6 md:py-5 shadow-sm border border-slate-100 flex flex-col sm:flex-row justify-between items-center gap-4">
-             <p className="text-base md:text-lg text-slate-600 font-medium">
+           <div className="bg-white rounded-[20px] p-4 md:px-5 md:py-4 shadow-sm border border-slate-100 flex flex-col sm:flex-row justify-between items-center gap-4">
+             <p className="text-sm md:text-base text-slate-600 font-medium">
                Showing
-               <span className="font-extrabold text-[#111827] text-xl mx-1.5">{visibleProducts.length}</span>
+               <span className="font-extrabold text-[#111827] text-lg mx-1.5">{visibleProducts.length}</span>
                of
-               <span className="font-extrabold text-[#111827] text-xl mx-1.5">{filteredProducts.length}</span>
+               <span className="font-extrabold text-[#111827] text-lg mx-1.5">{filteredProducts.length}</span>
                Products
              </p>
             {categoryFilter && (
@@ -337,8 +337,8 @@ const Shop = () => {
             )}
           </div>
 
-          {/* Enhanced Grid - 2 per row for larger cards on laptops/MacBooks, 3 on ultra-wide */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-3 gap-8 sm:gap-10 lg:gap-14">
+          {/* Enhanced Grid - 4 per row on laptops/MacBooks, 5 on ultra-wide */}
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 md:gap-4 xl:gap-5">
             {visibleProducts.map((product, i) => (
                <ProductCard key={product._id || product.id || i} product={product} />
             ))}

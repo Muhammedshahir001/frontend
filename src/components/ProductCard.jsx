@@ -89,7 +89,7 @@ const ProductCard = ({ product }) => {
       initial={{ opacity: 0, y: 15 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="group bg-white flex flex-col h-full rounded-[24px] md:rounded-[32px] overflow-hidden border border-slate-100 transition-all duration-500 ease-in-out hover:-translate-y-3 md:hover:-translate-y-4 hover:shadow-[0_25px_50px_-12px_rgba(15,23,42,0.15)] md:hover:shadow-[0_40px_80px_-20px_rgba(15,23,42,0.2)] relative shadow-[0_10px_25px_-10px_rgba(0,0,0,0.06)] md:shadow-[0_15px_40px_-12px_rgba(0,0,0,0.1)] w-full max-w-[380px] md:max-w-[520px] mx-auto"
+      className="group bg-white flex flex-col h-full rounded-[10px] md:rounded-[14px] overflow-hidden border border-slate-100 transition-all duration-500 ease-in-out hover:-translate-y-1.5 md:hover:-translate-y-2 hover:shadow-[0_15px_30px_-8px_rgba(15,23,42,0.1)] md:hover:shadow-[0_25px_50px_-12px_rgba(15,23,42,0.12)] relative shadow-[0_6px_15px_-6px_rgba(0,0,0,0.05)] md:shadow-[0_10px_25px_-8px_rgba(0,0,0,0.06)] w-full max-w-[240px] sm:max-w-[260px] md:max-w-[280px] lg:max-w-[260px] xl:max-w-[280px]"
       onMouseEnter={() => {
         setActiveImageIndex(hoverImageIndex);
       }}
@@ -107,7 +107,7 @@ const ProductCard = ({ product }) => {
       {/* Image Container with Hover Swap */}
       <Link
         to={productLink}
-        className="relative aspect-[4/5.5] overflow-hidden bg-[#f8fbff] block focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+        className="relative aspect-[4/5] overflow-hidden bg-[#f8fbff] block focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
       >
         {images.map((image, index) => (
           <img
@@ -121,7 +121,7 @@ const ProductCard = ({ product }) => {
           />
         ))}
         <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/20 via-transparent to-[#2563eb]/15 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20">
+        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-20">
           {images.slice(0, 4).map((_, index) => (
             <button
               key={`${productId}-dot-${index}`}
@@ -131,7 +131,7 @@ const ProductCard = ({ product }) => {
                 event.stopPropagation();
                 setActiveImageIndex(index);
               }}
-              className={`w-2.5 h-2.5 rounded-full border border-white/70 transition-all ${
+              className={`w-1.5 h-1.5 rounded-full border border-white/70 transition-all ${
                 activeImageIndex === index ? 'bg-white scale-110' : 'bg-white/40 hover:bg-white/80'
               }`}
               aria-label={`Show image ${index + 1}`}
@@ -141,16 +141,16 @@ const ProductCard = ({ product }) => {
       </Link>
 
       {/* Product Information Area matching Screenshot */}
-      <div className="p-6 md:p-10 flex flex-col flex-grow items-center text-center">
+      <div className="p-2.5 md:p-3.5 lg:p-2.5 xl:p-3.5 flex flex-col flex-grow items-center text-center">
         
         {/* Rating Stars - screenshot style */}
-        <div className="flex items-center gap-1.5 md:gap-2.5 mb-4 md:mb-6">
-          <div className="flex gap-1 md:gap-2">
+        <div className="flex items-center gap-1 mb-1 md:mb-1.5">
+          <div className="flex gap-0.5">
             {[...Array(5)].map((_, i) => (
               <Star
                 key={i}
-                size={16}
-                className={`md:size-[22px] ${
+                size={8}
+                className={`md:size-[10px] lg:size-[9px] xl:size-[10px] ${
                   i < Math.floor(rating)
                     ? 'fill-yellow-400 text-yellow-400'
                     : 'fill-gray-200 text-gray-200'
@@ -158,37 +158,37 @@ const ProductCard = ({ product }) => {
               />
             ))}
           </div>
-          <span className="text-[14px] md:text-[18px] text-slate-400 font-bold">
+          <span className="text-[9px] md:text-[11px] lg:text-[10px] xl:text-[11px] text-slate-400 font-bold">
             ({reviews})
           </span>
         </div>
 
         {/* Product Name - extremely large and readable */}
         <Link to={productLink} className="block w-full">
-          <h3 className="text-[19px] md:text-[28px] font-black text-[#0f172a] mb-5 md:mb-7 leading-tight min-h-[55px] md:min-h-[70px] hover:text-blue-700 transition-colors px-1 md:px-2">
+          <h3 className="text-[13px] md:text-[15px] lg:text-[14px] xl:text-[15px] font-black text-[#0f172a] mb-1.5 md:mb-2 leading-tight min-h-[32px] md:min-h-[40px] lg:min-h-[36px] xl:min-h-[40px] hover:text-blue-700 transition-colors px-1">
             {product.name}
           </h3>
         </Link>
 
         {/* Pricing Area */}
-        <div className="mt-auto w-full pt-2 md:pt-4">
-          <div className="flex items-baseline justify-center gap-3 md:gap-5 mb-3 md:mb-6">
-            <span className="text-[28px] md:text-[44px] font-black text-[#0f172a] tracking-tight">
+        <div className="mt-auto w-full pt-1">
+          <div className="flex items-baseline justify-center gap-1 md:gap-1.5 mb-1 md:mb-1.5">
+            <span className="text-[16px] md:text-[20px] lg:text-[18px] xl:text-[20px] font-black text-[#0f172a] tracking-tight">
               {IndianRupee.format(currentPrice)}
             </span>
             {hasOffer && (
-              <span className="text-[16px] md:text-[24px] font-bold text-slate-400 line-through">
+              <span className="text-[10px] md:text-[13px] lg:text-[11px] font-bold text-slate-400 line-through">
                 {IndianRupee.format(actualPrice)}
               </span>
             )}
           </div>
 
           {/* Screenshot style offer tags */}
-          <div className="min-h-[50px] md:min-h-[60px] flex flex-col items-center justify-center gap-1.5 md:gap-2">
-            <p className="text-[11px] md:text-[14px] font-black text-[#dc2626] uppercase tracking-[0.05em] md:tracking-[0.1em]">
+          <div className="min-h-[32px] md:min-h-[40px] lg:min-h-[36px] xl:min-h-[40px] flex flex-col items-center justify-center gap-0.5">
+            <p className="text-[8px] md:text-[10px] lg:text-[9px] font-black text-[#dc2626] uppercase tracking-[0.05em]">
               {product.offer || 'EXCLUSIVE DEAL'}
             </p>
-            <p className="text-[12px] md:text-[14px] text-slate-500 font-semibold">
+            <p className="text-[9px] md:text-[10px] lg:text-[9px] text-slate-500 font-semibold truncate w-full px-2">
               {product.features || ''}
             </p>
           </div>
@@ -196,10 +196,10 @@ const ProductCard = ({ product }) => {
       </div>
 
       {/* FOOTER ACTION - Solid Dark Navy Pill Button (Huge) */}
-      <div className="px-5 md:px-8 pb-6 md:pb-9 mt-auto">
+      <div className="px-2.5 md:px-4 lg:px-3 xl:px-4 pb-3.5 md:pb-5 lg:pb-3.5 xl:pb-5 mt-auto">
         <button
           onClick={handleAddToCart}
-          className="w-full bg-[#0f172a] text-white py-[14px] md:py-[20px] rounded-full text-[12px] md:text-[16px] font-black uppercase tracking-[0.15em] md:tracking-[0.2em] transition-all duration-300 ease-in-out hover:bg-blue-700 hover:scale-[1.02] active:scale-[0.98] hover:shadow-2xl hover:shadow-blue-700/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+          className="w-full bg-[#0f172a] text-white py-[8px] md:py-[12px] lg:py-[10px] xl:py-[12px] rounded-full text-[9px] md:text-[12px] lg:text-[10px] xl:text-[12px] font-black uppercase tracking-[0.1em] md:tracking-[0.12em] transition-all duration-300 ease-in-out hover:bg-blue-700 hover:scale-[1.02] active:scale-[0.98] hover:shadow-2xl hover:shadow-blue-700/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
         >
           Add to Cart
         </button>

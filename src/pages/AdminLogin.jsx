@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { setCredentials } from '../store/authSlice';
+import { setAdminCredentials } from '../store/authSlice';
 import { Lock, Mail, ShieldCheck, ArrowRight, Eye, EyeOff } from 'lucide-react';
 import toast from 'react-hot-toast';
 import './AdminLogin.css';
@@ -16,20 +16,20 @@ const AdminLogin = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { userInfo } = useSelector((state) => state.auth);
+  const { adminInfo } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (userInfo && userInfo.role === 'admin') {
+    if (adminInfo && adminInfo.role === 'admin') {
       navigate('/admin');
     }
-  }, [userInfo, navigate]);
+  }, [adminInfo, navigate]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
       const { data } = await axios.post('/api/auth/admin-login', { email, password });
-      dispatch(setCredentials(data));
+      dispatch(setAdminCredentials(data));
       toast.success('Welcome to Admin Panel');
       navigate('/admin');
     } catch (err) {

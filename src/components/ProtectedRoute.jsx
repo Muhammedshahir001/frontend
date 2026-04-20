@@ -6,8 +6,8 @@ const ProtectedRoute = ({ children }) => {
   const { userInfo } = useSelector((state) => state.auth);
   const location = useLocation();
 
-  if (!userInfo) {
-    // Redirect to login but save the current location so we can go back
+  if (!userInfo || !userInfo.token) {
+    // Redirect to login but save the current location they were trying to access
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 

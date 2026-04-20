@@ -4,8 +4,13 @@ const userInfoFromStorage = localStorage.getItem('userInfo')
   ? JSON.parse(localStorage.getItem('userInfo')) 
   : null;
 
+const adminInfoFromStorage = localStorage.getItem('adminInfo') 
+  ? JSON.parse(localStorage.getItem('adminInfo')) 
+  : null;
+
 const initialState = {
   userInfo: userInfoFromStorage,
+  adminInfo: adminInfoFromStorage,
 };
 
 const authSlice = createSlice({
@@ -20,8 +25,16 @@ const authSlice = createSlice({
       state.userInfo = null;
       localStorage.removeItem('userInfo');
     },
+    setAdminCredentials: (state, action) => {
+      state.adminInfo = action.payload;
+      localStorage.setItem('adminInfo', JSON.stringify(action.payload));
+    },
+    adminLogout: (state) => {
+      state.adminInfo = null;
+      localStorage.removeItem('adminInfo');
+    },
   },
 });
 
-export const { setCredentials, logout } = authSlice.actions;
+export const { setCredentials, logout, setAdminCredentials, adminLogout } = authSlice.actions;
 export default authSlice.reducer;

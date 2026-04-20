@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import api from '../utils/api';
 import toast from 'react-hot-toast';
-import { logout } from '../store/authSlice';
+import { adminLogout } from '../store/authSlice';
 import { 
   LayoutDashboard, ShoppingBag, Layers, 
   Image as ImageIcon, Users, Ticket, 
@@ -14,7 +14,7 @@ import {
 import './AdminDashboard.css';
 
 const AdminDashboard = () => {
-  const { userInfo } = useSelector(state => state.auth);
+  const { adminInfo } = useSelector(state => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('overview');
@@ -38,6 +38,7 @@ const AdminDashboard = () => {
   const [orders, setOrders] = useState([]);
   const [banners, setBanners] = useState([]);
   const [coupons, setCoupons] = useState([]);
+  const [testimonials, setTestimonials] = useState([]);
   const [usersList, setUsersList] = useState([]);
   const [stats, setStats] = useState({ 
     revenue: 0, 
@@ -46,7 +47,8 @@ const AdminDashboard = () => {
     products: 0,
     categories: 0,
     banners: 0,
-    coupons: 0
+    coupons: 0,
+    testimonials: 0
   });
 
   // Modal States
@@ -84,6 +86,17 @@ const AdminDashboard = () => {
     isActive: true 
   });
 
+  const [isTestimonialModalOpen, setIsTestimonialModalOpen] = useState(false);
+  const [editingTestimonial, setEditingTestimonial] = useState(null);
+  const [testimonialForm, setTestimonialForm] = useState({
+    clientName: '',
+    reviewMessage: '',
+    rating: 5,
+    profileImage: '',
+    role: 'Verified Buyer',
+    isActive: true
+  });
+
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [orderDetails, setOrderDetails] = useState(null);
@@ -95,13 +108,14 @@ const AdminDashboard = () => {
 
   const fetchAllData = async () => {
     try {
-      const [prodRes, catRes, orderRes, bannerRes, userRes, couponRes] = await Promise.all([
+      const [prodRes, catRes, orderRes, bannerRes, userRes, couponRes, testimonialRes] = await Promise.all([
         api.get('/api/products').catch(e => ({ data: [] })),
         api.get('/api/categories').catch(e => ({ data: [] })),
         api.get('/api/orders').catch(e => ({ data: [] })),
         api.get('/api/banners').catch(e => ({ data: [] })),
         api.get('/api/users').catch(e => ({ data: [] })),
-        api.get('/api/coupons').catch(e => ({ data: [] }))
+        api.get('/api/coupons').catch(e => ({ data: [] })),
+        api.get('/api/testimonials/admin').catch(e => ({ data: [] }))
       ]);
 
       setProducts(Array.isArray(prodRes.data) ? prodRes.data : []);
@@ -109,6 +123,7 @@ const AdminDashboard = () => {
       setOrders(Array.isArray(orderRes.data) ? orderRes.data : []);
       setBanners(Array.isArray(bannerRes.data) ? bannerRes.data : []);
       setCoupons(Array.isArray(couponRes.data) ? couponRes.data : []);
+      setTestimonials(Array.isArray(testimonialRes.data) ? testimonialRes.data : []);
       setUsersList(Array.isArray(userRes.data) ? userRes.data : []);
       
       // Calculate Stats
@@ -120,7 +135,8 @@ const AdminDashboard = () => {
         products: (Array.isArray(prodRes.data) ? prodRes.data : []).length,
         categories: (Array.isArray(catRes.data) ? catRes.data : []).length,
         banners: (Array.isArray(bannerRes.data) ? bannerRes.data : []).length,
-        coupons: (Array.isArray(couponRes.data) ? couponRes.data : []).length
+        coupons: (Array.isArray(couponRes.data) ? couponRes.data : []).length,
+        testimonials: (Array.isArray(testimonialRes.data) ? testimonialRes.data : []).length
       });
     } catch (err) {
       console.error('Admin Data Fetch Error:', err);
@@ -363,6 +379,66 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleTestimonialSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (editingTestimonial) {
+        await api.put(`/api/testimonials/${editingTestimonial._id}`, testimonialForm);
+      } else {
+        await api.post('/api/testimonials', testimonialForm);
+      }
+      setIsTestimonialModalOpen(false);
+      setEditingTestimonial(null);
+      setTestimonialForm({
+        clientName: '',
+        reviewMessage: '',
+        rating: 5,
+        profileImage: '',
+        role: 'Verified Buyer',
+        isActive: true
+      });
+      fetchAllData();
+      toast.success(editingTestimonial ? 'Testimonial updated' : 'Testimonial created');
+    } catch (err) {
+      toast.error('Failed to save testimonial');
+    }
+  };
+
+  const openEditTestimonial = (testimonial) => {
+    setEditingTestimonial(testimonial);
+    setTestimonialForm({
+      clientName: testimonial.clientName,
+      reviewMessage: testimonial.reviewMessage,
+      rating: testimonial.rating || 5,
+      profileImage: testimonial.profileImage || '',
+      role: testimonial.role || 'Verified Buyer',
+      isActive: testimonial.isActive !== false
+    });
+    setIsTestimonialModalOpen(true);
+  };
+
+  const deleteTestimonial = async (id) => {
+    if (window.confirm('Are you sure you want to delete this testimonial?')) {
+      try {
+        await api.delete(`/api/testimonials/${id}`);
+        fetchAllData();
+        toast.success('Testimonial deleted');
+      } catch (err) {
+        toast.error('Failed to delete testimonial');
+      }
+    }
+  };
+
+  const toggleTestimonialStatus = async (id, currentStatus) => {
+    try {
+      await api.put(`/api/testimonials/${id}`, { isActive: !currentStatus });
+      fetchAllData();
+      toast.success(`Testimonial ${!currentStatus ? 'activated' : 'deactivated'}`);
+    } catch (err) {
+      toast.error('Failed to update testimonial status');
+    }
+  };
+
   const updateOrderStatus = async (id, status) => {
     try {
       await api.put(`/api/orders/${id}/status`, { status });
@@ -411,6 +487,7 @@ const AdminDashboard = () => {
     { id: 'orders', label: 'Orders', icon: <Package size={20} /> },
     { id: 'banners', label: 'Banners', icon: <ImageIcon size={20} /> },
     { id: 'coupons', label: 'Coupons', icon: <Ticket size={20} /> },
+    { id: 'testimonials', label: 'Testimonials', icon: <Star size={20} /> },
     { id: 'users', label: 'Customers', icon: <Users size={20} /> },
   ];
 
@@ -463,7 +540,7 @@ const AdminDashboard = () => {
 
         <div className="sidebar-footer">
           <button className="logout-btn-admin" onClick={() => {
-            dispatch(logout());
+            dispatch(adminLogout());
             navigate('/admin-login');
           }}>
             <LogOut size={20} />
@@ -477,13 +554,13 @@ const AdminDashboard = () => {
         <header className="admin-header">
           <div className="header-left">
             <h1>{navItems.find(i => i.id === activeTab)?.label}</h1>
-            <p>Welcome back, {userInfo?.name}</p>
+            <p>Welcome back, {adminInfo?.name}</p>
           </div>
           <div className="header-right">
             <div className="admin-profile">
-              <div className="admin-avatar">{userInfo?.name?.charAt(0)}</div>
+              <div className="admin-avatar">{adminInfo?.name?.charAt(0)}</div>
               <div className="admin-info">
-                <span className="name">{userInfo?.name}</span>
+                <span className="name">{adminInfo?.name}</span>
                 <span className="role">Administrator</span>
               </div>
             </div>
@@ -534,6 +611,13 @@ const AdminDashboard = () => {
                   <div className="stat-info">
                     <h3>Coupons</h3>
                     <p>{stats.coupons}</p>
+                  </div>
+                </div>
+                <div className="stat-card-new testimonials">
+                  <div className="stat-icon"><Star size={24} /></div>
+                  <div className="stat-info">
+                    <h3>Testimonials</h3>
+                    <p>{stats.testimonials}</p>
                   </div>
                 </div>
                 <div className="stat-card-new users">
@@ -903,8 +987,98 @@ const AdminDashboard = () => {
             </div>
           )}
 
+          {activeTab === 'testimonials' && (
+            <div className="management-tab">
+              <div className="tab-header">
+                <h2>Client Testimonials</h2>
+                <button className="add-btn-main" onClick={() => {
+                  setEditingTestimonial(null);
+                  setTestimonialForm({
+                    clientName: '',
+                    reviewMessage: '',
+                    rating: 5,
+                    profileImage: '',
+                    role: 'Verified Buyer',
+                    isActive: true
+                  });
+                  setIsTestimonialModalOpen(true);
+                }}>
+                  <Plus size={20} /> Add New Review
+                </button>
+              </div>
+              <div className="table-responsive">
+                <table className="modern-table">
+                  <thead>
+                    <tr>
+                      <th>Client</th>
+                      <th>Review</th>
+                      <th>Rating</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {testimonials.map(t => (
+                      <tr key={t._id}>
+                        <td>
+                          <div className="flex items-center gap-3">
+                            {t.profileImage ? (
+                              <img src={t.profileImage} alt="" className="w-10 h-10 rounded-full object-cover" />
+                            ) : (
+                              <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-600 to-blue-400 flex items-center justify-center text-white font-bold text-sm">
+                                {t.clientName.charAt(0)}
+                              </div>
+                            )}
+                            <div>
+                              <div className="font-bold">{t.clientName}</div>
+                              <div className="text-xs text-slate-400">{t.role}</div>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="max-w-xs truncate">{t.reviewMessage}</td>
+                        <td>
+                          <div className="flex gap-0.5">
+                            {[...Array(5)].map((_, i) => (
+                              <Star
+                                key={i}
+                                size={12}
+                                className={
+                                  i < (t.rating || 5)
+                                    ? 'fill-yellow-400 text-yellow-400'
+                                    : 'fill-gray-200 text-gray-200'
+                                }
+                              />
+                            ))}
+                          </div>
+                        </td>
+                        <td>
+                          <span className={`status-pill ${t.isActive ? 'delivered' : 'cancelled'}`}>
+                            {t.isActive ? 'Active' : 'Hidden'}
+                          </span>
+                        </td>
+                        <td>
+                          <div className="action-btns">
+                            <button className="edit-btn" onClick={() => openEditTestimonial(t)} title="Edit"><Edit size={16} /></button>
+                            <button 
+                              className={t.isActive ? "delete-btn" : "status-btn-unblock"} 
+                              onClick={() => toggleTestimonialStatus(t._id, t.isActive)}
+                              title={t.isActive ? "Hide" : "Show"}
+                            >
+                              {t.isActive ? <X size={16} /> : <Check size={16} />}
+                            </button>
+                            <button className="delete-btn" onClick={() => deleteTestimonial(t._id)} title="Delete"><Trash2 size={16} /></button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
           {/* Add placeholders for other tabs */}
-          {activeTab !== 'overview' && activeTab !== 'products' && activeTab !== 'categories' && activeTab !== 'banners' && activeTab !== 'orders' && activeTab !== 'coupons' && activeTab !== 'users' && (
+          {activeTab !== 'overview' && activeTab !== 'products' && activeTab !== 'categories' && activeTab !== 'banners' && activeTab !== 'orders' && activeTab !== 'coupons' && activeTab !== 'testimonials' && activeTab !== 'users' && (
             <div className="coming-soon">
               <div className="placeholder-content">
                 <h2>{navItems.find(i => i.id === activeTab)?.label} Management</h2>
@@ -1273,6 +1447,109 @@ const AdminDashboard = () => {
               </div>
               <button type="submit" className="save-btn-admin">
                 {editingCoupon ? 'Update Coupon' : 'Create Coupon'}
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Testimonial Modal */}
+      {isTestimonialModalOpen && (
+        <div className="admin-modal-overlay">
+          <div className="admin-modal">
+            <div className="modal-header">
+              <h2>{editingTestimonial ? 'Edit Review' : 'Add New Review'}</h2>
+              <button onClick={() => setIsTestimonialModalOpen(false)} className="close-btn"><X size={24} /></button>
+            </div>
+            <form onSubmit={handleTestimonialSubmit} className="admin-form">
+              <div className="form-grid">
+                <div className="form-group">
+                  <label>Client Name</label>
+                  <input 
+                    required 
+                    type="text" 
+                    value={testimonialForm.clientName} 
+                    onChange={e => setTestimonialForm({...testimonialForm, clientName: e.target.value})}
+                    style={{ color: '#000000' }}
+                    placeholder="e.g., John Doe"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Role / Title</label>
+                  <input 
+                    type="text" 
+                    value={testimonialForm.role} 
+                    onChange={e => setTestimonialForm({...testimonialForm, role: e.target.value})}
+                    style={{ color: '#000000' }}
+                    placeholder="e.g., Verified Buyer"
+                  />
+                </div>
+              </div>
+              <div className="form-group">
+                <label>Review Message</label>
+                <textarea 
+                  required 
+                  rows="4"
+                  value={testimonialForm.reviewMessage} 
+                  onChange={e => setTestimonialForm({...testimonialForm, reviewMessage: e.target.value})}
+                  style={{ color: '#000000' }}
+                  placeholder="Write the client's review here..."
+                ></textarea>
+              </div>
+              <div className="form-grid">
+                <div className="form-group">
+                  <label>Rating (1-5 Stars)</label>
+                  <div className="flex items-center gap-2 mt-2">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        key={star}
+                        type="button"
+                        onClick={() => setTestimonialForm({ ...testimonialForm, rating: star })}
+                        className="focus:outline-none"
+                      >
+                        <Star
+                          size={24}
+                          className={
+                            star <= testimonialForm.rating
+                              ? 'fill-yellow-400 text-yellow-400'
+                              : 'fill-gray-200 text-gray-200'
+                          }
+                        />
+                      </button>
+                    ))}
+                    <span className="ml-2 font-bold">{testimonialForm.rating} Stars</span>
+                  </div>
+                </div>
+                <div className="form-group">
+                  <label>Profile Image URL (Optional)</label>
+                  <input 
+                    type="text" 
+                    value={testimonialForm.profileImage} 
+                    onChange={e => setTestimonialForm({...testimonialForm, profileImage: e.target.value})}
+                    style={{ color: '#000000' }}
+                    placeholder="https://example.com/avatar.jpg"
+                  />
+                </div>
+              </div>
+              <div className="form-group">
+                <label>Status</label>
+                <select 
+                  value={testimonialForm.isActive} 
+                  onChange={e => setTestimonialForm({...testimonialForm, isActive: e.target.value === 'true'})}
+                >
+                  <option value="true">Active (Visible on website)</option>
+                  <option value="false">Hidden</option>
+                </select>
+              </div>
+              {testimonialForm.profileImage && (
+                <div className="image-previews">
+                  <div className="preview-container">
+                    <img src={testimonialForm.profileImage} alt="Profile Preview" className="preview-img rounded-full" />
+                  </div>
+                </div>
+              )}
+              <button type="submit" className="save-btn-admin">
+                {editingTestimonial ? 'Update Review' : 'Create Review'}
               </button>
             </form>
           </div>
