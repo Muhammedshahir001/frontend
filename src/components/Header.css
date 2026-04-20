@@ -37,6 +37,7 @@
   display: flex;
   align-items: center;
   flex-shrink: 0;
+  z-index: 100;
 }
 
 .logo-img {
@@ -333,6 +334,8 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+    top: 50%;
+    transform: translate(-50%, -50%);
   }
 
   .nav-icons {

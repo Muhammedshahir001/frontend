@@ -124,16 +124,16 @@ const Shop = () => {
   return (
     <div className="shop-page bg-slate-50 min-h-screen font-sans">
       {/* Premium Header Banner */}
-      <section className="relative h-[35vh] md:h-[40vh] flex items-center justify-center overflow-hidden bg-[#111827] mt-[80px] md:mt-0">
-        <div className="absolute inset-0 z-0 opacity-60">
+      <section className="shop-banner relative flex items-center justify-center overflow-hidden bg-[#111827] mt-[80px] xl:mt-0">
+        <div className="absolute inset-0 z-0">
           <img 
             src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?q=80&w=2080&auto=format&fit=crop" 
             alt="Shop Our Collection" 
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover opacity-60"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/20" />
         </div>
-        <div className="relative z-10 text-center px-4 max-w-3xl">
+        <div className="relative z-10 text-center px-4 max-w-3xl py-12 md:py-20">
           <motion.span 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -154,10 +154,10 @@ const Shop = () => {
       </section>
 
       {/* Main Shop Container */}
-      <div className="w-full max-w-[2200px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 2xl:px-16 py-8 md:py-16 flex flex-col xl:flex-row gap-8 lg:gap-12">
+      <div className="w-full max-w-[2200px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 2xl:px-16 py-8 md:py-16 flex flex-col xl:flex-row gap-8 lg:gap-12 min-h-0">
         
         {/* Mobile Filter Toggle */}
-        <div className="xl:hidden mb-4">
+        <div className="xl:hidden mb-4 sticky top-[80px] z-[100] bg-slate-50/80 backdrop-blur-md py-2">
           <button 
             onClick={() => setIsSidebarOpen(true)}
             className="w-full bg-white border border-slate-200 py-4 px-6 rounded-2xl flex items-center justify-between font-bold text-slate-800 shadow-sm"
