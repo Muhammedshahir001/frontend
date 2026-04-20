@@ -400,7 +400,9 @@ const AdminDashboard = () => {
       fetchAllData();
       toast.success(editingTestimonial ? 'Testimonial updated' : 'Testimonial created');
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Failed to save testimonial');
+      console.error('Testimonial Save Error:', err);
+      const errorMsg = err.response?.data?.message || err.message || 'Failed to save testimonial';
+      toast.error(errorMsg);
     }
   };
 
