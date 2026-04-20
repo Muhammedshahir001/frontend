@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
 import { Mail, Lock, ArrowRight, UserPlus, LogIn, Eye, EyeOff } from 'lucide-react';
-import axios from 'axios';
+import api from '../utils/api';
 import { setCredentials } from '../store/authSlice';
 import { fetchCart } from '../store/cartSlice';
 import { GoogleLogin } from '@react-oauth/google';
@@ -50,7 +50,7 @@ const Login = () => {
     setError('');
     setLoading(true);
     try {
-      const { data } = await axios.post('/api/auth/login', { email, password });
+      const { data } = await api.post('/api/auth/login', { email, password });
       dispatch(setCredentials(data));
       dispatch(fetchCart());
       toast.success(`Welcome back, ${data.name}!`);
@@ -65,7 +65,7 @@ const Login = () => {
   const handleGoogleSuccess = async (credentialResponse) => {
     setError('');
     try {
-      const { data } = await axios.post('/api/auth/google', { credential: credentialResponse.credential });
+      const { data } = await api.post('/api/auth/google', { credential: credentialResponse.credential });
       dispatch(setCredentials(data));
       dispatch(fetchCart());
       toast.success(`Welcome, ${data.name}!`);

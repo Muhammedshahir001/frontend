@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../utils/api';
 import ProductCard from '../components/ProductCard';
 import './Shop.css';
 
@@ -58,11 +58,12 @@ const Shop = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const { data: prodData } = await axios.get('/api/products');
-        setProducts(Array.isArray(prodData) ? prodData : []);
-        
-        const { data: catData } = await axios.get('/api/categories');
-        setCategories(Array.isArray(catData) ? catData.filter(c => c.isActive) : []);
+        const [prodRes, catRes] = await Promise.all([
+          api.get('/api/products'),
+          api.get('/api/categories')
+        ]);
+        setProducts(Array.isArray(prodRes.data) ? prodRes.data : []);
+        setCategories(Array.isArray(catRes.data) ? catRes.data.filter(c => c.isActive) : []);
       } catch (error) {
         console.error('Failed to fetch store data', error);
       } finally {

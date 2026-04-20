@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../utils/api';
 import { setAdminCredentials } from '../store/authSlice';
 import { Lock, Mail, ShieldCheck, ArrowRight, Eye, EyeOff } from 'lucide-react';
 import toast from 'react-hot-toast';
@@ -28,7 +28,7 @@ const AdminLogin = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const { data } = await axios.post('/api/auth/admin-login', { email, password });
+      const { data } = await api.post('/api/auth/admin-login', { email, password });
       dispatch(setAdminCredentials(data));
       toast.success('Welcome to Admin Panel');
       navigate('/admin');

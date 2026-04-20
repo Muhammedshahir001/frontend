@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { motion, AnimatePresence } from 'framer-motion';
-import axios from 'axios';
+import api from '../utils/api';
 import { Heart, ShoppingBag, ChevronRight, Droplets, Shield, Sparkles, CheckCircle2, Star } from 'lucide-react';
 import { addToCart } from '../store/cartSlice';
 import ProductCard from '../components/ProductCard';
@@ -67,7 +67,7 @@ const FALLBACK_GALLERY = [
     const fetchProductAndRelated = async () => {
       try {
         setLoading(true);
-        const { data: currentProduct } = await axios.get(`/api/products/${id}`);
+        const { data: currentProduct } = await api.get(`/api/products/${id}`);
         setProduct(currentProduct);
         if (currentProduct && currentProduct.images && currentProduct.images.length > 0) {
           setActiveImage(currentProduct.images[0]);
@@ -75,7 +75,7 @@ const FALLBACK_GALLERY = [
           setActiveImage(FALLBACK_GALLERY[0]);
         }
 
-        const { data: allProducts } = await axios.get('/api/products');
+        const { data: allProducts } = await api.get('/api/products');
         const related = allProducts.filter(p => String(p._id) !== String(id)).slice(0, 4);
         setRelatedProducts(related);
       } catch (error) {

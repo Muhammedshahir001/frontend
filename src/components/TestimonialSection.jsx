@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
 import { motion } from 'framer-motion';
 import { Quote, Star } from 'lucide-react';
-import axios from 'axios';
+import api from '../utils/api';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -15,7 +15,7 @@ const TestimonialSection = () => {
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
-        const { data } = await axios.get('/api/testimonials');
+        const { data } = await api.get('/api/testimonials');
         setTestimonials(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error('Failed to fetch testimonials', error);

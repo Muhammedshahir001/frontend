@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import HeroSlider from '../components/HeroSlider';
-import axios from 'axios';
+import api from '../utils/api';
 import TestimonialSection from '../components/TestimonialSection';
 import ProductSection from '../components/ProductSection';
 import './Home.css';
@@ -28,14 +28,14 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data: catData } = await axios.get('/api/categories');
+        const { data: catData } = await api.get('/api/categories');
         const mappedCats = catData.filter(c => c.isActive).slice(0, 3).map((cat) => ({
           ...cat,
           image: cat.image || '/images/placeholder.jpg'
         }));
         setCategories(mappedCats);
 
-        const { data: prodData } = await axios.get('/api/products');
+        const { data: prodData } = await api.get('/api/products');
         setTrendingProducts(prodData.slice(0, 8));
       } catch (error) {
         console.error('Home data fetch error', error);

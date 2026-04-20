@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { motion, AnimatePresence } from 'framer-motion';
 import { User, Mail, Phone, Lock, Home, MapPin, Globe, ArrowRight, CheckCircle2, Eye, EyeOff } from 'lucide-react';
-import axios from 'axios';
+import api from '../utils/api';
 import { GoogleLogin } from '@react-oauth/google';
 import { setCredentials } from '../store/authSlice';
 import { fetchCart } from '../store/cartSlice';
@@ -74,26 +74,10 @@ const Signup = () => {
     }
 
     setLoading(true);
-
     try {
-      const address = {
-        street: form.street,
-        city: form.city,
-        state: form.state,
-        zipCode: form.zipCode,
-        country: form.country
-      };
-
-      const hasAddressData = Object.values(address).some((value) => value?.trim());
-      await axios.post('/api/auth/register', {
-        name: form.name,
-        email: form.email,
-        password: form.password,
-        phone: form.phone,
-        addresses: hasAddressData ? [address] : []
-      });
-
+      await api.post('/api/auth/register', form);
       setOtpSent(true);
+      toast.success('Verification code sent to your email!');
     } catch (err) {
       setError(err.response?.data?.message || 'Signup failed. Please try again.');
     } finally {
@@ -101,17 +85,18 @@ const Signup = () => {
     }
   };
 
-  const handleOtpVerify = async (e) => {
+  const handleVerifyOTP = async (e) => {
     e.preventDefault();
     setError('');
     setLoading(true);
-
     try {
-      const { data } = await axios.post('/api/auth/verify-otp', { email: form.email, otp });
-      toast.success('Email verified successfully! Please log in.');
-      navigate('/login');
+      const { data } = await api.post('/api/auth/verify-otp', { email: form.email, otp });
+      dispatch(setCredentials(data));
+      dispatch(fetchCart());
+      toast.success(`Welcome to Heedy, ${data.name}!`);
+      navigate('/');
     } catch (err) {
-      setError(err.response?.data?.message || 'Invalid OTP. Please try again.');
+      setError(err.response?.data?.message || 'Invalid OTP');
     } finally {
       setLoading(false);
     }
@@ -121,8 +106,8 @@ const Signup = () => {
     setError('');
     setLoading(true);
     try {
-      await axios.post('/api/auth/resend-otp', { email: form.email });
-      alert('A new OTP has been sent to your email.');
+      await api.post('/api/auth/resend-otp', { email: form.email });
+      toast.success('A new OTP has been sent to your email.');
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to resend OTP.');
     } finally {
@@ -133,7 +118,7 @@ const Signup = () => {
   const handleGoogleSuccess = async (credentialResponse) => {
     setError('');
     try {
-      const { data } = await axios.post('/api/auth/google', { credential: credentialResponse.credential });
+      const { data } = await api.post('/api/auth/google', { credential: credentialResponse.credential });
       dispatch(setCredentials(data));
       dispatch(fetchCart());
       toast.success(`Welcome to Heedy, ${data.name}!`);
@@ -319,7 +304,7 @@ const Signup = () => {
 
                 {error && <motion.div variants={itemVariants} className="auth-error">{error}</motion.div>}
 
-                <form onSubmit={handleOtpVerify} className="auth-form">
+                <form onSubmit={handleVerifyOTP} className="auth-form">
                   <motion.div variants={itemVariants} className="auth-input-group">
                     <label>Enter OTP Code</label>
                     <input 

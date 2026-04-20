@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MapPin, Phone, Mail, Clock, Send, MessageCircle, ChevronRight } from 'lucide-react';
-import axios from 'axios';
+import api from '../utils/api';
+import { 
+  Mail, Phone, MapPin, Send, 
+  CheckCircle2, Clock, Globe, ShieldCheck,
+  MessageCircle, ChevronRight
+} from 'lucide-react';
 import toast from 'react-hot-toast';
 import './Contact.css';
 
@@ -64,7 +68,7 @@ const Contact = () => {
     }
     setLoading(true);
     try {
-      await axios.post('/api/contact', form);
+      await api.post('/api/contact', form);
       toast.success('Message sent successfully! We will get back to you soon.');
       setForm({ name: '', email: '', phone: '', subject: '', message: '' });
     } catch (error) {

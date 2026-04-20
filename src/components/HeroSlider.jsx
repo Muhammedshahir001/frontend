@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import axios from 'axios';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, EffectFade, Pagination, Navigation } from 'swiper/modules';
+import api from '../utils/api';
+import { ChevronLeft, ChevronRight, ArrowRight, Sparkles } from 'lucide-react';
 import './HeroSlider.css';
 
 const DEFAULT_SLIDES = [
@@ -17,7 +19,7 @@ const HeroSlider = () => {
   useEffect(() => {
     const fetchBanners = async () => {
       try {
-        const { data } = await axios.get('/api/banners');
+        const { data } = await api.get('/api/banners');
         if (data && data.length > 0) {
           const mappedBanners = data.map(b => ({
             id: b._id,
