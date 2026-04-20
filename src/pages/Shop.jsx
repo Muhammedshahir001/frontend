@@ -124,10 +124,10 @@ const Shop = () => {
   return (
     <div className="shop-page bg-slate-50 min-h-screen font-sans pt-[80px]">
       {/* Main Shop Container */}
-      <div className="w-full max-w-[1500px] mx-auto px-4 sm:px-6 md:px-8 xl:px-10 py-6 md:py-10 flex flex-col xl:flex-row gap-6 lg:gap-8 min-h-0">
+      <div className="w-full max-w-[1700px] mx-auto px-4 sm:px-6 md:px-8 xl:px-12 py-4 md:py-8 flex flex-col xl:flex-row gap-8 lg:gap-12 min-h-0">
         
         {/* Mobile Filter Toggle */}
-        <div className="xl:hidden mb-4 sticky top-[80px] z-[100] bg-slate-50/80 backdrop-blur-md py-2">
+        <div className="xl:hidden mb-2 sticky top-[80px] z-[100] bg-slate-50/80 backdrop-blur-md py-2">
           <button 
             onClick={() => setIsSidebarOpen(true)}
             className="w-full bg-white border border-slate-200 py-4 px-6 rounded-2xl flex items-center justify-between font-bold text-slate-800 shadow-sm"
@@ -154,7 +154,7 @@ const Shop = () => {
         </AnimatePresence>
 
         {/* Left Sidebar - Filters */}
-        <aside className={`fixed xl:sticky top-0 xl:top-[110px] left-0 h-full xl:h-[calc(100vh-140px)] w-[85%] sm:w-[380px] xl:w-[320px] 2xl:w-[360px] bg-white z-[2001] xl:z-auto transition-transform duration-500 xl:translate-x-0 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} xl:rounded-[28px] border-r xl:border border-slate-100 shadow-[0_15px_50px_-15px_rgba(0,0,0,0.08)] overflow-y-auto custom-scrollbar`}>
+        <aside className={`fixed xl:sticky top-0 xl:top-[100px] left-0 h-full xl:h-[calc(100vh-120px)] w-[85%] sm:w-[360px] xl:w-[320px] 2xl:w-[350px] bg-white z-[2001] xl:z-auto transition-transform duration-500 xl:translate-x-0 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} xl:rounded-[24px] border-r xl:border border-slate-100 shadow-[0_12px_40px_-15px_rgba(0,0,0,0.06)] overflow-y-auto custom-scrollbar`}>
           <div className="p-6 md:p-8">
              <div className="flex items-center justify-between mb-8 pb-4 border-b border-slate-100">
                <h2 className="text-xl md:text-2xl font-black text-slate-900 uppercase tracking-widest">Filters</h2>
@@ -337,8 +337,8 @@ const Shop = () => {
             )}
           </div>
 
-          {/* 3 Items per row on large displays, responsive */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-3 gap-6 sm:gap-10 lg:gap-12">
+          {/* Enhanced Grid - 2 per row for larger cards on laptops/MacBooks, 3 on ultra-wide */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-3 gap-8 sm:gap-10 lg:gap-14">
             {visibleProducts.map((product, i) => (
                <ProductCard key={product._id || product.id || i} product={product} />
             ))}

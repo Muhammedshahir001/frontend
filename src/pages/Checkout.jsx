@@ -60,10 +60,10 @@ const Checkout = () => {
         });
 
         if (targetProducts.length === 0) {
-          alert('This coupon is not applicable to any products in your cart.');
+          toast.error('This coupon is not applicable to any products in your cart.');
           return;
         }
-        discountableAmount = targetProducts.reduce((acc, item) => acc + item.price * item.qty, 0);
+        discountableAmount = targetProducts.reduce((acc, item) => acc + (item.variant?.price || item.price) * item.qty, 0);
       } else {
         // Global coupon
         discountableAmount = subtotal;
@@ -236,21 +236,41 @@ const Checkout = () => {
                 <h2>Promotion Code</h2>
               </div>
               <div className="coupon-wrapper">
-                <input 
-                  type="text" 
-                  placeholder="Enter gift card or discount code" 
-                  value={coupon} 
-                  disabled={couponApplied}
-                  onChange={e => setCoupon(e.target.value.toUpperCase())} 
-                />
+                <div className="relative flex-1">
+                  <input 
+                    type="text" 
+                    placeholder="Enter gift card or discount code" 
+                    value={coupon} 
+                    disabled={couponApplied}
+                    onChange={e => setCoupon(e.target.value.toUpperCase())} 
+                    className={couponApplied ? 'coupon-input-applied' : ''}
+                  />
+                  {couponApplied && (
+                    <button 
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-red-500 transition-colors"
+                      onClick={() => {
+                        setCouponApplied(false);
+                        setDiscount(0);
+                        setCoupon('');
+                      }}
+                    >
+                      <X size={18} />
+                    </button>
+                  )}
+                </div>
                 <button 
                   className={`apply-coupon ${couponApplied ? 'applied' : ''}`}
                   onClick={handleApplyCoupon}
-                  disabled={couponApplied}
+                  disabled={couponApplied || !coupon}
                 >
-                  {couponApplied ? 'Applied' : 'Apply'}
+                  {couponApplied ? <Check size={20} /> : 'Apply'}
                 </button>
               </div>
+              {couponApplied && (
+                <p className="coupon-success-msg">
+                  Awesome! Your discount has been applied to the eligible items.
+                </p>
+              )}
             </section>
 
             <div className="checkout-divider" />

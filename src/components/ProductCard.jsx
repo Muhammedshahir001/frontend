@@ -67,6 +67,7 @@ const ProductCard = ({ product }) => {
         product: productId,
         name: product.name,
         price: currentPrice,
+        category: product.category,
         image: images[activeImageIndex] || images[0],
         variant:
           product.variants && product.variants.length > 0
@@ -88,7 +89,7 @@ const ProductCard = ({ product }) => {
       initial={{ opacity: 0, y: 15 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="group bg-white flex flex-col h-full rounded-[20px] md:rounded-[24px] overflow-hidden border border-slate-100 transition-all duration-500 ease-in-out hover:-translate-y-2 md:hover:-translate-y-3 hover:shadow-[0_20px_40px_-10px_rgba(15,23,42,0.12)] md:hover:shadow-[0_30px_60px_-15px_rgba(15,23,42,0.15)] relative shadow-[0_8px_20px_-8px_rgba(0,0,0,0.06)] md:shadow-[0_12px_30px_-10px_rgba(0,0,0,0.08)] w-full max-w-[340px] md:max-w-[440px] mx-auto"
+      className="group bg-white flex flex-col h-full rounded-[24px] md:rounded-[32px] overflow-hidden border border-slate-100 transition-all duration-500 ease-in-out hover:-translate-y-3 md:hover:-translate-y-4 hover:shadow-[0_25px_50px_-12px_rgba(15,23,42,0.15)] md:hover:shadow-[0_40px_80px_-20px_rgba(15,23,42,0.2)] relative shadow-[0_10px_25px_-10px_rgba(0,0,0,0.06)] md:shadow-[0_15px_40px_-12px_rgba(0,0,0,0.1)] w-full max-w-[380px] md:max-w-[520px] mx-auto"
       onMouseEnter={() => {
         setActiveImageIndex(hoverImageIndex);
       }}
@@ -140,16 +141,16 @@ const ProductCard = ({ product }) => {
       </Link>
 
       {/* Product Information Area matching Screenshot */}
-      <div className="p-5 md:p-8 flex flex-col flex-grow items-center text-center">
+      <div className="p-6 md:p-10 flex flex-col flex-grow items-center text-center">
         
         {/* Rating Stars - screenshot style */}
-        <div className="flex items-center gap-1.5 md:gap-2 mb-3 md:mb-5">
-          <div className="flex gap-1 md:gap-1.5">
+        <div className="flex items-center gap-1.5 md:gap-2.5 mb-4 md:mb-6">
+          <div className="flex gap-1 md:gap-2">
             {[...Array(5)].map((_, i) => (
               <Star
                 key={i}
-                size={14}
-                className={`md:size-[18px] ${
+                size={16}
+                className={`md:size-[22px] ${
                   i < Math.floor(rating)
                     ? 'fill-yellow-400 text-yellow-400'
                     : 'fill-gray-200 text-gray-200'
@@ -157,26 +158,26 @@ const ProductCard = ({ product }) => {
               />
             ))}
           </div>
-          <span className="text-[12px] md:text-[16px] text-slate-400 font-bold">
+          <span className="text-[14px] md:text-[18px] text-slate-400 font-bold">
             ({reviews})
           </span>
         </div>
 
         {/* Product Name - extremely large and readable */}
         <Link to={productLink} className="block w-full">
-          <h3 className="text-[17px] md:text-[24px] font-black text-[#0f172a] mb-4 md:mb-5 leading-tight min-h-[50px] md:min-h-[60px] hover:text-blue-700 transition-colors px-1 md:px-2">
+          <h3 className="text-[19px] md:text-[28px] font-black text-[#0f172a] mb-5 md:mb-7 leading-tight min-h-[55px] md:min-h-[70px] hover:text-blue-700 transition-colors px-1 md:px-2">
             {product.name}
           </h3>
         </Link>
 
         {/* Pricing Area */}
-        <div className="mt-auto w-full pt-1 md:pt-2">
-          <div className="flex items-baseline justify-center gap-3 md:gap-4 mb-2 md:mb-4">
-            <span className="text-[24px] md:text-[38px] font-black text-[#0f172a] tracking-tight">
+        <div className="mt-auto w-full pt-2 md:pt-4">
+          <div className="flex items-baseline justify-center gap-3 md:gap-5 mb-3 md:mb-6">
+            <span className="text-[28px] md:text-[44px] font-black text-[#0f172a] tracking-tight">
               {IndianRupee.format(currentPrice)}
             </span>
             {hasOffer && (
-              <span className="text-[14px] md:text-[21px] font-bold text-slate-400 line-through">
+              <span className="text-[16px] md:text-[24px] font-bold text-slate-400 line-through">
                 {IndianRupee.format(actualPrice)}
               </span>
             )}

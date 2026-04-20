@@ -88,7 +88,7 @@ const cartSlice = createSlice({
   reducers: {
     addToCartLocal: (state, action) => {
       const item = action.payload;
-      const incomingVariant = item.variant?.ml || 'Standard';
+      const incomingVariant = (typeof item.variant === 'string' ? item.variant : item.variant?.ml) || 'Standard';
       const existItem = state.cartItems.find(
         (x) =>
           x.product === item.product &&
@@ -97,7 +97,7 @@ const cartSlice = createSlice({
 
       if (existItem) {
         state.cartItems = state.cartItems.map((x) =>
-          x.product === existItem.product &&
+          x.product === item.product &&
           (x.variant?.ml || 'Standard') === incomingVariant
             ? { ...x, ...item, qty: Number(x.qty) + Number(item.qty || 1) }
             : x
@@ -152,10 +152,11 @@ const cartSlice = createSlice({
       .addCase(fetchCart.fulfilled, (state, action) => {
         state.loading = false;
         state.cartItems = action.payload.map(item => ({
-          product: item.product._id,
-          name: item.product.name,
-          price: item.product.price,
-          image: item.product.images?.[0],
+          product: item.product?._id,
+          name: item.product?.name,
+          price: item.product?.price,
+          category: item.product?.category,
+          image: item.product?.images?.[0],
           variant: item.variant,
           qty: item.quantity,
           _id: item._id // backend item ID
@@ -170,9 +171,10 @@ const cartSlice = createSlice({
         if (Array.isArray(action.payload)) {
           state.cartItems = action.payload.map(item => ({
             product: item.product?._id || item.product,
-            name: item.product?.name || state.cartItems.find(x => x.product === item.product)?.name,
-            price: item.product?.price || state.cartItems.find(x => x.product === item.product)?.price,
-            image: item.product?.images?.[0] || state.cartItems.find(x => x.product === item.product)?.image,
+            name: item.product?.name || state.cartItems.find(x => x.product === (item.product?._id || item.product))?.name,
+            price: item.product?.price || state.cartItems.find(x => x.product === (item.product?._id || item.product))?.price,
+            category: item.product?.category || state.cartItems.find(x => x.product === (item.product?._id || item.product))?.category,
+            image: item.product?.images?.[0] || state.cartItems.find(x => x.product === (item.product?._id || item.product))?.image,
             variant: item.variant,
             qty: item.quantity,
             _id: item._id
@@ -184,9 +186,10 @@ const cartSlice = createSlice({
         if (Array.isArray(action.payload)) {
           state.cartItems = action.payload.map(item => ({
             product: item.product?._id || item.product,
-            name: item.product?.name || state.cartItems.find(x => x.product === item.product)?.name,
-            price: item.product?.price || state.cartItems.find(x => x.product === item.product)?.price,
-            image: item.product?.images?.[0] || state.cartItems.find(x => x.product === item.product)?.image,
+            name: item.product?.name || state.cartItems.find(x => x.product === (item.product?._id || item.product))?.name,
+            price: item.product?.price || state.cartItems.find(x => x.product === (item.product?._id || item.product))?.price,
+            category: item.product?.category || state.cartItems.find(x => x.product === (item.product?._id || item.product))?.category,
+            image: item.product?.images?.[0] || state.cartItems.find(x => x.product === (item.product?._id || item.product))?.image,
             variant: item.variant,
             qty: item.quantity,
             _id: item._id
@@ -198,9 +201,10 @@ const cartSlice = createSlice({
         if (Array.isArray(action.payload)) {
           state.cartItems = action.payload.map(item => ({
             product: item.product?._id || item.product,
-            name: item.product?.name || state.cartItems.find(x => x.product === item.product)?.name,
-            price: item.product?.price || state.cartItems.find(x => x.product === item.product)?.price,
-            image: item.product?.images?.[0] || state.cartItems.find(x => x.product === item.product)?.image,
+            name: item.product?.name || state.cartItems.find(x => x.product === (item.product?._id || item.product))?.name,
+            price: item.product?.price || state.cartItems.find(x => x.product === (item.product?._id || item.product))?.price,
+            category: item.product?.category || state.cartItems.find(x => x.product === (item.product?._id || item.product))?.category,
+            image: item.product?.images?.[0] || state.cartItems.find(x => x.product === (item.product?._id || item.product))?.image,
             variant: item.variant,
             qty: item.quantity,
             _id: item._id

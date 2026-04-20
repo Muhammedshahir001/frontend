@@ -6,18 +6,18 @@ import { Link } from 'react-router-dom';
 const ProductSection = ({ title, products }) => {
   return (
     <section className="bg-white py-16 md:py-0 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-[1500px] mx-auto">
+      <div className="max-w-[1700px] mx-auto">
         
         {/* Section Header - Clean, screenshot style */}
-        <div className="flex flex-col items-center mb-12 md:mb-16">
-          <h2 className="text-xl md:text-3xl font-bold text-slate-950 tracking-[0.15em] uppercase mb-4 text-center">
+        <div className="flex flex-col items-center mb-16 md:mb-24">
+          <h2 className="text-2xl md:text-5xl font-black text-[#0f172a] tracking-[0.2em] uppercase mb-6 text-center">
             {title}
           </h2>
-          <div className="w-[40px] md:w-[60px] h-[3px] bg-slate-950 rounded-full"></div>
+          <div className="w-[60px] md:w-[100px] h-[4px] bg-[#0f172a] rounded-full"></div>
         </div>
 
-        {/* Fully Responsive Premium Grid - 3 items per row on desktop */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-10 lg:gap-12">
+        {/* Fully Responsive Premium Grid - Large cards, balanced for all screens */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 sm:gap-12 lg:gap-16">
           {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}

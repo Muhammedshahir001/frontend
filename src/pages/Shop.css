@@ -73,8 +73,12 @@
   min-height: 100vh;
 }
 
-.shop-page .xl\:sticky {
-  height: calc(100vh - 120px) !important;
+@media (min-width: 1280px) {
+  .shop-page .xl\:sticky {
+    height: calc(100vh - 100px) !important;
+    position: sticky !important;
+    top: 90px !important;
+  }
 }
 
 /* Custom Scrollbar for Sidebar */

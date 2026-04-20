@@ -49,7 +49,7 @@ const Home = () => {
       <HeroSlider />
 
       {/* Section 1: Categories - Fixed Spacing & Responsive Strip */}
-      <section className="relative py-12 md:py-20 bg-white">
+      <section className="relative py-8 md:py-16 bg-white">
         {/* Decorative Blobs */}
         <div className="absolute top-0 left-[-10%] w-72 h-72 bg-blue-100 rounded-full blur-[120px] opacity-30 pointer-events-none"></div>
         <div className="absolute bottom-0 right-[-10%] w-96 h-96 bg-blue-50 rounded-full blur-[150px] opacity-40 pointer-events-none"></div>
@@ -224,7 +224,7 @@ const Home = () => {
       {/* Section 6: Why Choose Us (Blue Theme) */}
      {/* Section 7: Key Features - White Premium Gallery */}
 {/* Section 7: Key Features - High-End Minimalist Typography */}
-<section className="py-16 md:py-24 bg-white overflow-hidden">
+<section className="py-12 md:py-20 bg-white overflow-hidden">
   <div className="max-w-[1400px] mx-auto px-6">
     
     {/* Header Section - Clean & Balanced */}

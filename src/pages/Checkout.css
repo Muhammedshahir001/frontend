@@ -4,7 +4,7 @@
 
 .checkout-page {
   background-color: #fcfcfc;
-  padding: 160px 0 80px; /* Increased top padding for header */
+  padding: 120px 0 60px; /* Reduced top padding */
   min-height: 100vh;
   font-family: 'Inter', sans-serif;
   color: #111;
@@ -308,6 +308,26 @@
   color: white;
   border-color: #10b981;
   cursor: default;
+}
+
+.coupon-input-applied {
+  background-color: #f0fdf4 !important;
+  border-color: #10b981 !important;
+  color: #065f46 !important;
+  font-weight: 700 !important;
+}
+
+.coupon-success-msg {
+  color: #10b981;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-top: 0.75rem;
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .discount-row {
