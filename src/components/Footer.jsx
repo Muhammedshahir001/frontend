@@ -20,7 +20,7 @@ const Footer = () => {
           
           {/* Brand Info */}
           <motion.div className="flex flex-col items-start sm:col-span-2 lg:col-span-1" {...colAnimation(0)}>
-            <img src="./logo/footer.png" alt="Logo" className="w-[190px] sm:w-[220px] lg:w-[210px] h-auto object-contain mb-7" />
+             <img src="./logo/footer.png" alt="Logo" className="w-[190px] sm:w-[220px] lg:w-[210px] h-auto object-contain mb-7" />
             <p className="text-slate-700 leading-8 mb-8 text-[1rem] sm:text-[1.05rem] pr-0 max-w-md">
               Redefining high-end beauty. Our carefully curated collections are designed to elevate your everyday routines to extraordinary premium experiences.
             </p>
