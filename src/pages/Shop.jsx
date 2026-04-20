@@ -124,7 +124,7 @@ const Shop = () => {
   return (
     <div className="shop-page bg-slate-50 min-h-screen font-sans pt-[80px]">
       {/* Main Shop Container */}
-      <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 md:px-8 xl:px-10 py-6 md:py-10 flex flex-col xl:flex-row gap-8 lg:gap-12 min-h-0">
+      <div className="w-full max-w-[1500px] mx-auto px-4 sm:px-6 md:px-8 xl:px-10 py-6 md:py-10 flex flex-col xl:flex-row gap-6 lg:gap-8 min-h-0">
         
         {/* Mobile Filter Toggle */}
         <div className="xl:hidden mb-4 sticky top-[80px] z-[100] bg-slate-50/80 backdrop-blur-md py-2">
@@ -154,9 +154,9 @@ const Shop = () => {
         </AnimatePresence>
 
         {/* Left Sidebar - Filters */}
-        <aside className={`fixed xl:sticky top-0 xl:top-[110px] left-0 h-full xl:h-[calc(100vh-140px)] w-[85%] sm:w-[400px] xl:w-[300px] 2xl:w-[340px] bg-white z-[2001] xl:z-auto transition-transform duration-500 xl:translate-x-0 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} xl:rounded-[24px] border-r xl:border border-slate-100 shadow-[0_12px_40px_-15px_rgba(0,0,0,0.06)] overflow-y-auto custom-scrollbar`}>
-          <div className="p-8 md:p-10">
-             <div className="flex items-center justify-between mb-8 pb-6 border-b border-slate-100">
+        <aside className={`fixed xl:sticky top-0 xl:top-[110px] left-0 h-full xl:h-[calc(100vh-140px)] w-[85%] sm:w-[380px] xl:w-[320px] 2xl:w-[360px] bg-white z-[2001] xl:z-auto transition-transform duration-500 xl:translate-x-0 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} xl:rounded-[28px] border-r xl:border border-slate-100 shadow-[0_15px_50px_-15px_rgba(0,0,0,0.08)] overflow-y-auto custom-scrollbar`}>
+          <div className="p-6 md:p-8">
+             <div className="flex items-center justify-between mb-8 pb-4 border-b border-slate-100">
                <h2 className="text-xl md:text-2xl font-black text-slate-900 uppercase tracking-widest">Filters</h2>
                <div className="flex items-center gap-4">
                  <button 
@@ -172,12 +172,12 @@ const Shop = () => {
              </div>
              
              {/* Category Filter */}
-             <div className="mb-12">
-                <h3 className="text-[15px] font-black uppercase tracking-widest text-[#111827] mb-6">Shop By Category</h3>
-                <div className="flex flex-col gap-3">
+             <div className="mb-10">
+                <h3 className="text-[13px] font-black uppercase tracking-[0.2em] text-slate-400 mb-6">Shop By Category</h3>
+                <div className="flex flex-col gap-2.5">
                    <button 
                      onClick={() => setCategoryFilter('')}
-                     className={`text-left px-6 py-4 rounded-[16px] text-lg font-bold transition-all duration-300 ${categoryFilter === '' ? 'bg-[#111827] text-white shadow-xl shadow-slate-900/20' : 'bg-[#f4f6fa] text-slate-600 hover:bg-blue-50 hover:text-blue-800'}`}
+                     className={`text-left px-5 py-3.5 rounded-[14px] text-base font-bold transition-all duration-300 ${categoryFilter === '' ? 'bg-[#111827] text-white shadow-lg shadow-slate-900/20' : 'bg-[#f4f6fa] text-slate-600 hover:bg-blue-50 hover:text-blue-800'}`}
                    >
                      All Categories
                    </button>
@@ -185,7 +185,7 @@ const Shop = () => {
                      <button 
                        key={c._id || c.id || i}
                        onClick={() => setCategoryFilter(c.name)}
-                       className={`text-left px-6 py-4 rounded-[16px] text-lg font-bold transition-all duration-300 ${categoryFilter === c.name ? 'bg-[#111827] text-white shadow-xl shadow-slate-900/20' : 'bg-[#f4f6fa] text-slate-600 hover:bg-blue-50 hover:text-blue-800'}`}
+                       className={`text-left px-5 py-3.5 rounded-[14px] text-base font-bold transition-all duration-300 ${categoryFilter === c.name ? 'bg-[#111827] text-white shadow-lg shadow-slate-900/20' : 'bg-[#f4f6fa] text-slate-600 hover:bg-blue-50 hover:text-blue-800'}`}
                      >
                        {c.name}
                      </button>
@@ -195,12 +195,12 @@ const Shop = () => {
 
              {/* Price Filter with Graphic Graph Line */}
              <div>
-                <h3 className="text-[15px] font-black uppercase tracking-widest text-[#111827] mb-6">Price Range</h3>
+                <h3 className="text-[13px] font-black uppercase tracking-[0.2em] text-slate-400 mb-6">Price Range</h3>
                 <div className="pt-2">
                   
                   {/* Graph visual */}
-                  <div className="relative pt-8 pb-2">
-                    <div className="price-graph-container absolute bottom-4 left-3 right-3 z-0 pointer-events-none">
+                  <div className="relative pt-6 pb-2">
+                    <div className="price-graph-container absolute bottom-4 left-2 right-2 z-0 pointer-events-none">
                       {priceGraphBins.map((height, idx) => {
                         const binPercent = (idx / 20) * 100;
                         const minPercent = (localMinPrice / absoluteMax) * 100;
@@ -248,9 +248,9 @@ const Shop = () => {
                   </div>
 
                   {/* Input Fields */}
-                  <div className="flex items-center gap-4 mt-8 mb-8">
-                    <div className="flex-1 bg-[#f4f6fa] border border-slate-200 rounded-[16px] p-3 px-5 shadow-inner">
-                      <label className="text-[12px] uppercase font-bold text-slate-400 mb-1.5 block">Min (₹)</label>
+                  <div className="flex items-center gap-3 mt-8 mb-6">
+                    <div className="flex-1 bg-[#f4f6fa] border border-slate-200 rounded-[12px] p-2.5 px-4 shadow-inner">
+                      <label className="text-[10px] uppercase font-bold text-slate-400 mb-1 block">Min (₹)</label>
                       <input 
                         type="number" 
                         value={localMinPrice} 
@@ -258,12 +258,12 @@ const Shop = () => {
                         max={absoluteMax}
                         step={priceStep}
                         onChange={(e) => setLocalMinPrice(Math.min(clampPrice(e.target.value), localMaxPrice))}
-                        className="w-full border-none bg-transparent text-xl font-black text-[#111827] focus:outline-none"
+                        className="w-full border-none bg-transparent text-lg font-black text-[#111827] focus:outline-none"
                       />
                     </div>
-                    <div className="text-slate-300 font-bold text-xl">-</div>
-                    <div className="flex-1 bg-[#f4f6fa] border border-slate-200 rounded-[16px] p-3 px-5 shadow-inner">
-                      <label className="text-[12px] uppercase font-bold text-slate-400 mb-1.5 block">Max (₹)</label>
+                    <div className="text-slate-300 font-bold text-lg">-</div>
+                    <div className="flex-1 bg-[#f4f6fa] border border-slate-200 rounded-[12px] p-2.5 px-4 shadow-inner">
+                      <label className="text-[10px] uppercase font-bold text-slate-400 mb-1 block">Max (₹)</label>
                       <input 
                         type="number" 
                         value={localMaxPrice} 
@@ -271,14 +271,14 @@ const Shop = () => {
                         max={absoluteMax}
                         step={priceStep}
                         onChange={(e) => setLocalMaxPrice(Math.max(clampPrice(e.target.value), localMinPrice))}
-                        className="w-full border-none bg-transparent text-xl font-black text-[#111827] focus:outline-none"
+                        className="w-full border-none bg-transparent text-lg font-black text-[#111827] focus:outline-none"
                       />
                     </div>
                   </div>
                   
                   <button 
                     onClick={applyPriceFilter}
-                    className="w-full bg-[#111827] text-white py-5 rounded-[16px] text-base font-bold uppercase tracking-widest transition-all duration-300 hover:bg-blue-600 hover:shadow-lg hover:shadow-blue-600/30 active:scale-[0.98]"
+                    className="w-full bg-[#111827] text-white py-4 rounded-[14px] text-sm font-bold uppercase tracking-widest transition-all duration-300 hover:bg-blue-600 hover:shadow-lg hover:shadow-blue-600/30 active:scale-[0.98]"
                   >
                     Apply Filter
                   </button>
@@ -288,44 +288,45 @@ const Shop = () => {
         </aside>
 
         {/* Right Section - Products */}
-        <div className="flex-1 min-w-0">
-          {/* Premium Header Banner moved here for alignment */}
-          <section className="shop-banner relative flex items-center justify-center overflow-hidden bg-[#111827] rounded-[24px] mb-8">
-            <div className="absolute inset-0 z-0">
-              <img 
-                src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?q=80&w=2080&auto=format&fit=crop" 
-                alt="Shop Our Collection" 
-                className="w-full h-full object-cover opacity-60"
-              />
-              <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/20" />
-            </div>
-            <div className="relative z-10 text-center px-4 py-16 md:py-24 flex flex-col items-center justify-center">
-              <motion.span 
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="block text-blue-300 text-[12px] md:text-sm font-extrabold uppercase tracking-[0.4em] mb-4 drop-shadow-md"
-              >
-                Curated For You
-              </motion.span>
-              <motion.h1 
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-2 drop-shadow-2xl font-bold"
-              >
-                Our Collection
-              </motion.h1>
-            </div>
-          </section>
-          <div className="bg-white rounded-[24px] p-5 md:px-8 md:py-7 mb-8 md:mb-10 shadow-sm border border-slate-100 flex flex-col sm:flex-row justify-between items-center gap-5">
-            <p className="text-lg md:text-xl text-slate-600 font-medium">
-              Showing
-              <span className="font-extrabold text-[#111827] text-2xl mx-1.5">{visibleProducts.length}</span>
-              of
-              <span className="font-extrabold text-[#111827] text-2xl mx-1.5">{filteredProducts.length}</span>
-              Products
-            </p>
+        <div className="flex-1 min-w-0 flex flex-col gap-6">
+           {/* Premium Header Banner moved here for alignment */}
+           <section className="shop-banner relative flex items-center justify-center overflow-hidden bg-[#111827] rounded-[24px] shadow-sm">
+             <div className="absolute inset-0 z-0">
+               <img 
+                 src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?q=80&w=2080&auto=format&fit=crop" 
+                 alt="Shop Our Collection" 
+                 className="w-full h-full object-cover opacity-60"
+               />
+               <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/20" />
+             </div>
+             <div className="relative z-10 text-center px-4 py-12 md:py-16 flex flex-col items-center justify-center">
+               <motion.span 
+                 initial={{ opacity: 0, y: 10 }}
+                 animate={{ opacity: 1, y: 0 }}
+                 transition={{ duration: 0.6 }}
+                 className="block text-blue-300 text-[10px] md:text-xs font-black uppercase tracking-[0.4em] mb-3 drop-shadow-md"
+               >
+                 Curated For You
+               </motion.span>
+               <motion.h1 
+                 initial={{ opacity: 0, y: 10 }}
+                 animate={{ opacity: 1, y: 0 }}
+                 transition={{ duration: 0.6, delay: 0.1 }}
+                 className="text-3xl md:text-4xl lg:text-5xl font-serif text-white mb-1 drop-shadow-2xl font-bold"
+               >
+                 Our Collection
+               </motion.h1>
+             </div>
+           </section>
+
+           <div className="bg-white rounded-[20px] p-4 md:px-6 md:py-5 shadow-sm border border-slate-100 flex flex-col sm:flex-row justify-between items-center gap-4">
+             <p className="text-base md:text-lg text-slate-600 font-medium">
+               Showing
+               <span className="font-extrabold text-[#111827] text-xl mx-1.5">{visibleProducts.length}</span>
+               of
+               <span className="font-extrabold text-[#111827] text-xl mx-1.5">{filteredProducts.length}</span>
+               Products
+             </p>
             {categoryFilter && (
                <div className="flex items-center gap-3 text-base bg-[#111827] px-6 py-3 rounded-full text-white font-bold shadow-md">
                  <span>{categoryFilter}</span>
