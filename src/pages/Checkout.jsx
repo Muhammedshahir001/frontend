@@ -307,13 +307,13 @@ const Checkout = () => {
                 <div className="payment-option selected">
                   <div className="option-info">
                     <CreditCard size={20} />
-                    <span>Secure Online Payment (Razorpay)</span>
+                    <span>Secure Online Payment</span>
                   </div>
-                  <div className="payment-logos">
+                  {/* <div className="payment-logos">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/RuPay_logo.svg/1200px-RuPay_logo.svg.png" alt="RuPay" />
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/2560px-Visa_Inc._logo.svg.png" alt="Visa" />
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/1280px-Mastercard-logo.svg.png" alt="MC" />
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </section>
