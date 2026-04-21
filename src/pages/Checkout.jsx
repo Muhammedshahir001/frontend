@@ -52,18 +52,13 @@ const Checkout = () => {
       const productId = item.product?._id || item.product || item._id;
       let itemDiscount = 0;
       
-      if (couponApplied && appliedCouponData && (appliedCouponData.productIds.length === 0 || eligibleItems.includes(productId))) {
+      if (couponApplied && appliedCouponData && eligibleItems.includes(productId)) {
         const itemTotal = (item.variant?.price || item.price) * item.qty;
         if (appliedCouponData.discountType === 'percentage') {
           itemDiscount = (itemTotal * appliedCouponData.discountValue) / 100;
         } else {
-          // For fixed amount, we distribute it across eligible items proportional to their value
-          // or just apply to the first eligible item. Distribution is fairer.
-          // Let's keep it simple for now: if fixed, we already have the total discount from validation.
-          // But wait, the requirements say "Apply coupon per product".
-          // If it's a "₹100 off on Product X", it's clear.
-          // If it's a "₹100 off on any product in [X, Y]", we need to decide how to show it.
-          // For now, I'll use the backend's logic for fixed but show it on eligible items.
+          // For fixed amount, we already have the total discount from validation.
+          // Distribution is handled in calculateFinalTotals for fixed coupons.
         }
       }
       return { ...item, itemDiscount };
@@ -73,7 +68,7 @@ const Checkout = () => {
     if (couponApplied && appliedCouponData?.discountType === 'fixed') {
       const eligibleTotal = cartItems.reduce((sum, item) => {
         const productId = item.product?._id || item.product || item._id;
-        if (appliedCouponData.productIds.length === 0 || eligibleItems.includes(productId)) {
+        if (eligibleItems.includes(productId)) {
           return sum + (item.variant?.price || item.price) * item.qty;
         }
         return sum;

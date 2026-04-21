@@ -1450,7 +1450,7 @@ const AdminDashboard = () => {
                 </div>
               </div>
               <div className="form-group">
-                <label>Applicable Products (Optional - Leave empty for all products)</label>
+                <label>Applicable Products (Required - Select products for this coupon)</label>
                 <div className="products-selection-list">
                   {products.map(product => (
                     <label key={product._id} className="product-checkbox-item">

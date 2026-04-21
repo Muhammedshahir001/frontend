@@ -22,12 +22,6 @@ const ProductCard = ({ product }) => {
 
   const productId = product._id || product.id;
   const productLink = `/product/${productId}`;
-
-  const availableCoupon = useMemo(() => {
-    return activeCoupons.find(coupon => 
-      coupon.productIds.length === 0 || coupon.productIds.includes(productId)
-    );
-  }, [activeCoupons, productId]);
   
   // Ensure we always have multiple images to demonstrate the hover effect robustly
   const images = useMemo(() => {
@@ -108,14 +102,6 @@ const ProductCard = ({ product }) => {
       {product.badge && (
         <div className="absolute top-5 right-5 z-20 bg-[#0f172a] text-white text-[12px] font-black px-5 py-2.5 uppercase tracking-widest rounded-full shadow-xl">
           {product.badge}
-        </div>
-      )}
-
-      {/* Coupon Badge - Top Left */}
-      {availableCoupon && (
-        <div className="absolute top-3 left-3 z-20 bg-green-600 text-white text-[9px] md:text-[11px] font-black px-2 md:px-3 py-1 md:py-1.5 uppercase tracking-wider rounded-md shadow-lg flex items-center gap-1">
-          <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" />
-          Coupon Available
         </div>
       )}
 

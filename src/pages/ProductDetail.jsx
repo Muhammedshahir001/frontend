@@ -57,7 +57,7 @@ const FALLBACK_GALLERY = [
   const availableCoupon = React.useMemo(() => {
     if (!product) return null;
     return activeCoupons.find(coupon => 
-      coupon.productIds.length === 0 || coupon.productIds.includes(product._id)
+      coupon.productIds.includes(product._id)
     );
   }, [activeCoupons, product]);
 
