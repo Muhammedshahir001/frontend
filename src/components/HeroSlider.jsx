@@ -6,19 +6,15 @@ import api from '../utils/api';
 import { ChevronLeft, ChevronRight, ArrowRight, Sparkles } from 'lucide-react';
 import './HeroSlider.css';
 
-const DEFAULT_SLIDES = [
-  { id: 1, image: '/hero/slide1.png', title: 'Luxury Sun Care', subtitle: 'Protect your radiance with golden hour defense.', cta: 'Shop Sunscreen' },
-  { id: 2, image: '/hero/slide2.png', title: 'Oceanic Purity', subtitle: 'Mineral protection derived from nature.', cta: 'Discover More' },
-  { id: 3, image: '/hero/slide3.png', title: 'Dynamic Hydration', subtitle: 'Sweat-resistant, feather-light, invisible finish.', cta: 'Explore Formula' }
-];
-
 const HeroSlider = () => {
   const [current, setCurrent] = useState(0);
-  const [slides, setSlides] = useState(DEFAULT_SLIDES);
+  const [slides, setSlides] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchBanners = async () => {
       try {
+        setLoading(true);
         const { data } = await api.get('/api/banners');
         if (data && data.length > 0) {
           const mappedBanners = data.map(b => ({
@@ -29,9 +25,14 @@ const HeroSlider = () => {
             cta: 'Shop Now'
           }));
           setSlides(mappedBanners);
+        } else {
+          setSlides([]);
         }
       } catch (error) {
         console.error('Failed to fetch banners', error);
+        setSlides([]);
+      } finally {
+        setLoading(false);
       }
     };
     fetchBanners();
@@ -48,6 +49,7 @@ const HeroSlider = () => {
   const nextSlide = () => setCurrent(current === slides.length - 1 ? 0 : current + 1);
   const prevSlide = () => setCurrent(current === 0 ? slides.length - 1 : current - 1);
 
+  if (loading) return null; // Or a small loader
   if (slides.length === 0) return null;
 
   return (
