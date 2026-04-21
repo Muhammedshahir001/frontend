@@ -100,7 +100,7 @@ const Footer = () => {
                 </div>
                 <div>
                   <span className="block text-[0.72rem] font-bold text-slate-500 uppercase tracking-[0.14em] mb-1.5">Visit Us</span>
-                  <span className="text-[1rem] text-slate-800 font-semibold leading-7">Heedy Sajin Land, Kadkkavoor 
+                  <span className="text-[1rem] text-slate-800 font-semibold leading-7">Heedy Sajin Land, Kadakkavoor 
 <br/>Thiruvanathapuram, Kerala</span>
                 </div>
               </li>
