@@ -81,7 +81,9 @@ const AdminDashboard = () => {
     code: '', 
     discountType: 'percentage', 
     discountValue: '', 
-    categoryId: '', 
+    productIds: [], 
+    usageLimit: '',
+    minPurchaseAmount: '',
     expiryDate: '', 
     isActive: true 
   });
@@ -161,8 +163,10 @@ const AdminDashboard = () => {
     setCouponForm({
       code: coupon.code,
       discountType: coupon.discountType || 'percentage',
-      discountValue: coupon.discountValue || coupon.discountPercentage,
-      categoryId: coupon.categoryId || '',
+      discountValue: coupon.discountValue,
+      productIds: coupon.productIds || [],
+      usageLimit: coupon.usageLimit || '',
+      minPurchaseAmount: coupon.minPurchaseAmount || '',
       expiryDate: coupon.expiryDate.split('T')[0],
       isActive: coupon.isActive
     });
@@ -359,7 +363,16 @@ const AdminDashboard = () => {
       }
       setIsCouponModalOpen(false);
       setEditingCoupon(null);
-      setCouponForm({ code: '', discountType: 'percentage', discountValue: '', categoryId: '', expiryDate: '', isActive: true });
+      setCouponForm({ 
+        code: '', 
+        discountType: 'percentage', 
+        discountValue: '', 
+        productIds: [], 
+        usageLimit: '',
+        minPurchaseAmount: '',
+        expiryDate: '', 
+        isActive: true 
+      });
       fetchAllData();
       toast.success(editingCoupon ? 'Coupon updated' : 'Coupon created');
     } catch (err) {
@@ -1416,26 +1429,55 @@ const AdminDashboard = () => {
               </div>
               <div className="form-grid">
                 <div className="form-group">
-                  <label>Applicable Category (Optional)</label>
-                  <select 
-                    value={couponForm.categoryId} 
-                    onChange={e => setCouponForm({...couponForm, categoryId: e.target.value})}
-                  >
-                    <option value="">All Categories</option>
-                    {categories.map(cat => (
-                      <option key={cat._id} value={cat._id}>{cat.name}</option>
-                    ))}
-                  </select>
-                </div>
-                <div className="form-group">
-                  <label>Expiry Date</label>
+                  <label>Usage Limit (Optional)</label>
                   <input 
-                    required 
-                    type="date" 
-                    value={couponForm.expiryDate} 
-                    onChange={e => setCouponForm({...couponForm, expiryDate: e.target.value})}
+                    type="number" 
+                    min="1"
+                    placeholder="Total uses allowed"
+                    value={couponForm.usageLimit} 
+                    onChange={e => setCouponForm({...couponForm, usageLimit: e.target.value})}
                   />
                 </div>
+                <div className="form-group">
+                  <label>Min Purchase Amount (₹) (Optional)</label>
+                  <input 
+                    type="number" 
+                    min="0"
+                    placeholder="Min order value"
+                    value={couponForm.minPurchaseAmount} 
+                    onChange={e => setCouponForm({...couponForm, minPurchaseAmount: e.target.value})}
+                  />
+                </div>
+              </div>
+              <div className="form-group">
+                <label>Applicable Products (Optional - Leave empty for all products)</label>
+                <div className="products-selection-list">
+                  {products.map(product => (
+                    <label key={product._id} className="product-checkbox-item">
+                      <input 
+                        type="checkbox"
+                        checked={(couponForm.productIds || []).includes(product._id)}
+                        onChange={(e) => {
+                          const currentIds = couponForm.productIds || [];
+                          const updatedProductIds = e.target.checked
+                            ? [...currentIds, product._id]
+                            : currentIds.filter(id => id !== product._id);
+                          setCouponForm({ ...couponForm, productIds: updatedProductIds });
+                        }}
+                      />
+                      <span>{product.name}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+              <div className="form-group">
+                <label>Expiry Date</label>
+                <input 
+                  required 
+                  type="date" 
+                  value={couponForm.expiryDate} 
+                  onChange={e => setCouponForm({...couponForm, expiryDate: e.target.value})}
+                />
               </div>
               <div className="form-group">
                 <label>Status</label>

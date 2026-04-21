@@ -4,6 +4,7 @@ import { AnimatePresence } from 'framer-motion';
 import { Toaster } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout, setCredentials, adminLogout, setAdminCredentials } from './store/authSlice';
+import { fetchActiveCoupons } from './store/couponSlice';
 import api from './utils/api';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -67,6 +68,7 @@ function App() {
     };
 
     checkAuth();
+    dispatch(fetchActiveCoupons());
   }, [dispatch]); // Only run once on mount
 
   if (isAuthChecking) {

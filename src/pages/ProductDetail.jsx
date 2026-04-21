@@ -52,6 +52,14 @@ const FALLBACK_GALLERY = [
   const [activeImage, setActiveImage] = useState(FALLBACK_GALLERY[0]);
   const [isAdded, setIsAdded] = useState(false);
   const { userInfo } = useSelector((state) => state.auth);
+  const { activeCoupons } = useSelector((state) => state.coupons);
+
+  const availableCoupon = React.useMemo(() => {
+    if (!product) return null;
+    return activeCoupons.find(coupon => 
+      coupon.productIds.length === 0 || coupon.productIds.includes(product._id)
+    );
+  }, [activeCoupons, product]);
 
   const currentPrice = product?.variants && product.variants.length > 0 
     ? (product.variants[selectedVariant]?.offerPrice || product.variants[selectedVariant]?.actualPrice)
@@ -311,6 +319,35 @@ const FALLBACK_GALLERY = [
               )}
             </div>
           </motion.div>
+
+          {/* Coupon Info */}
+          {availableCoupon && (
+            <motion.div variants={fadeUp} className="mb-4 md:mb-6 bg-green-50 border border-green-100 rounded-xl p-3 md:p-4 flex items-center justify-between group">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform">
+                  <Sparkles size={20} />
+                </div>
+                <div>
+                  <h4 className="text-[10px] md:text-xs font-black text-green-800 uppercase tracking-widest mb-0.5">Special Offer Available</h4>
+                  <p className="text-[11px] md:text-sm font-bold text-green-600">
+                    Use code <span className="text-green-800 font-black px-1.5 py-0.5 bg-green-100 rounded border border-green-200 select-all cursor-pointer">{availableCoupon.code}</span> for {availableCoupon.discountType === 'percentage' ? `${availableCoupon.discountValue}% OFF` : `₹${availableCoupon.discountValue} OFF`}
+                  </p>
+                  {availableCoupon.minPurchaseAmount > 0 && (
+                    <p className="text-[9px] md:text-[10px] text-green-700 mt-0.5">Min purchase: ₹{availableCoupon.minPurchaseAmount}</p>
+                  )}
+                </div>
+              </div>
+              <button 
+                onClick={() => {
+                  navigator.clipboard.writeText(availableCoupon.code);
+                  toast.success('Coupon code copied!');
+                }}
+                className="bg-green-600 hover:bg-green-700 text-white text-[9px] md:text-[10px] font-black uppercase tracking-widest px-3 py-2 rounded-lg transition-all shadow-md active:scale-95"
+              >
+                Copy
+              </button>
+            </motion.div>
+          )}
 
           {/* Actions */}
           <motion.div variants={fadeUp} className="flex flex-col gap-3 md:gap-4 pt-4 md:pt-5 border-t border-blue-50">

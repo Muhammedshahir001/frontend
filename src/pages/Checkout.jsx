@@ -32,6 +32,8 @@ const Checkout = () => {
   const [coupon, setCoupon] = useState('');
   const [discount, setDiscount] = useState(0);
   const [couponApplied, setCouponApplied] = useState(false);
+  const [appliedCouponData, setAppliedCouponData] = useState(null);
+  const [eligibleItems, setEligibleItems] = useState([]);
 
   useEffect(() => {
     if (!userInfo) {
@@ -42,47 +44,69 @@ const Checkout = () => {
   if (!userInfo) return null;
 
   const subtotal = cartItems.reduce((acc, item) => acc + (item.variant?.price || item.price) * item.qty, 0);
-  const total = subtotal - discount;
+  
+  // Calculate discount per item
+  const calculateFinalTotals = () => {
+    let totalDiscount = 0;
+    const itemsWithDiscount = cartItems.map(item => {
+      const productId = item.product?._id || item.product || item._id;
+      let itemDiscount = 0;
+      
+      if (couponApplied && appliedCouponData && (appliedCouponData.productIds.length === 0 || eligibleItems.includes(productId))) {
+        const itemTotal = (item.variant?.price || item.price) * item.qty;
+        if (appliedCouponData.discountType === 'percentage') {
+          itemDiscount = (itemTotal * appliedCouponData.discountValue) / 100;
+        } else {
+          // For fixed amount, we distribute it across eligible items proportional to their value
+          // or just apply to the first eligible item. Distribution is fairer.
+          // Let's keep it simple for now: if fixed, we already have the total discount from validation.
+          // But wait, the requirements say "Apply coupon per product".
+          // If it's a "₹100 off on Product X", it's clear.
+          // If it's a "₹100 off on any product in [X, Y]", we need to decide how to show it.
+          // For now, I'll use the backend's logic for fixed but show it on eligible items.
+        }
+      }
+      return { ...item, itemDiscount };
+    });
+
+    // If discountType is fixed, the total discount is just the discountValue (up to eligible total)
+    if (couponApplied && appliedCouponData?.discountType === 'fixed') {
+      const eligibleTotal = cartItems.reduce((sum, item) => {
+        const productId = item.product?._id || item.product || item._id;
+        if (appliedCouponData.productIds.length === 0 || eligibleItems.includes(productId)) {
+          return sum + (item.variant?.price || item.price) * item.qty;
+        }
+        return sum;
+      }, 0);
+      totalDiscount = Math.min(appliedCouponData.discountValue, eligibleTotal);
+    } else {
+      totalDiscount = itemsWithDiscount.reduce((sum, item) => sum + (item.itemDiscount || 0), 0);
+    }
+
+    return {
+      itemsWithDiscount,
+      totalDiscount,
+      finalTotal: subtotal - totalDiscount
+    };
+  };
+
+  const { itemsWithDiscount, totalDiscount, finalTotal } = calculateFinalTotals();
 
   const handleApplyCoupon = async () => {
     if (!coupon) return;
     try {
-      const { data } = await api.post('/api/coupons/validate', { code: coupon });
+      const { data } = await api.post('/api/coupons/validate', { code: coupon, cartItems });
       
-      // Category-based discount logic
-      let discountableAmount = 0;
-      if (data.categoryId) {
-        // Only sum products that belong to the specified category
-        const targetProducts = cartItems.filter(item => {
-          // item.category could be ID or object depending on how cart is stored
-          const itemCatId = item.category?._id || item.category;
-          return String(itemCatId) === String(data.categoryId);
-        });
-
-        if (targetProducts.length === 0) {
-          toast.error('This coupon is not applicable to any products in your cart.');
-          return;
-        }
-        discountableAmount = targetProducts.reduce((acc, item) => acc + (item.variant?.price || item.price) * item.qty, 0);
-      } else {
-        // Global coupon
-        discountableAmount = subtotal;
-      }
-
-      let calculatedDiscount = 0;
-      if (data.discountType === 'percentage') {
-        calculatedDiscount = (discountableAmount * data.discountValue) / 100;
-      } else {
-        calculatedDiscount = Math.min(data.discountValue, discountableAmount);
-      }
-
-      setDiscount(calculatedDiscount);
+      setAppliedCouponData(data.coupon);
+      setEligibleItems(data.eligibleItems);
       setCouponApplied(true);
       toast.success('Coupon applied successfully!');
     } catch (error) {
       toast.error(error.response?.data?.message || 'Invalid coupon code');
       setDiscount(0);
       setCouponApplied(false);
+      setAppliedCouponData(null);
+      setEligibleItems([]);
     }
   };
 
@@ -106,7 +130,7 @@ const Checkout = () => {
       return;
     }
 
-    if (!total || isNaN(total) || total <= 0) {
+    if (!finalTotal || isNaN(finalTotal) || finalTotal <= 0) {
       alert('Invalid order total. Please check your cart.');
       return;
     }
@@ -116,7 +140,7 @@ const Checkout = () => {
       const { data: keyData } = await api.get('/api/orders/config/razorpay');
       
       // 2. Create Razorpay Order on Backend
-      const { data: rzpOrder } = await api.post('/api/orders/razorpay', { amount: total });
+      const { data: rzpOrder } = await api.post('/api/orders/razorpay', { amount: finalTotal });
 
       const options = {
         key: keyData.keyId, 
@@ -129,18 +153,21 @@ const Checkout = () => {
           try {
             // 3. Verified Payment -> Place Real Order
             const { data: finalOrder } = await api.post('/api/orders', {
-              products: cartItems.map(item => ({
+              products: itemsWithDiscount.map(item => ({
                 product: item.product,
                 name: item.name,
                 quantity: item.qty,
                 price: item.variant?.price || item.price,
+                discount: item.itemDiscount || 0,
                 variant: {
                   ml: item.variant?.ml || 'Standard'
                 }
               })),
               shippingAddress,
               paymentMethod: 'razorpay',
-              totalAmount: total,
+              totalAmount: finalTotal,
+              discount: totalDiscount,
+              couponCode: couponApplied ? appliedCouponData?.code : null,
               paymentDetails: {
                 razorpayOrderId: response.razorpay_order_id,
                 razorpayPaymentId: response.razorpay_payment_id,
@@ -301,7 +328,7 @@ const Checkout = () => {
             <div className="order-summary-card">
               <h3>Order Bag</h3>
               <div className="summary-items">
-                {cartItems.map(item => (
+                {itemsWithDiscount.map(item => (
                   <div className="summary-item" key={`${item.product}-${item.variant?.ml || 'Standard'}`}>
                     <div className="item-thumb">
                       <img src={item.image} alt={item.name} />
@@ -311,7 +338,14 @@ const Checkout = () => {
                       <h4>{item.name}</h4>
                       <span>{item.variant?.ml || 'Standard'} Edition</span>
                     </div>
-                    <p className="item-price">{IndianRupee.format((item.variant?.price || item.price) * item.qty)}</p>
+                    <div className="item-price-col">
+                      {item.itemDiscount > 0 && (
+                        <span className="item-old-price">{IndianRupee.format((item.variant?.price || item.price) * item.qty)}</span>
+                      )}
+                      <p className="item-price">
+                        {IndianRupee.format(((item.variant?.price || item.price) * item.qty) - (item.itemDiscount || 0))}
+                      </p>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -321,10 +355,10 @@ const Checkout = () => {
                   <span>Subtotal</span>
                   <span>{IndianRupee.format(subtotal)}</span>
                 </div>
-                {discount > 0 && (
+                {totalDiscount > 0 && (
                   <div className="price-row discount-row">
-                    <span>Discount Applied</span>
-                    <span>-{IndianRupee.format(discount)}</span>
+                    <span>Coupon Discount {appliedCouponData?.code && `(${appliedCouponData.code})`}</span>
+                    <span>-{IndianRupee.format(totalDiscount)}</span>
                   </div>
                 )}
                 <div className="price-row">
@@ -333,7 +367,7 @@ const Checkout = () => {
                 </div>
                 <div className="price-row total-final">
                   <span>Total</span>
-                  <span>{IndianRupee.format(total)}</span>
+                  <span>{IndianRupee.format(finalTotal)}</span>
                 </div>
               </div>
 

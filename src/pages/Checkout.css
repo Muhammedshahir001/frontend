@@ -298,6 +298,24 @@
   transition: all 0.3s ease;
 }
 
+.item-price-col {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+}
+
+.item-old-price {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  text-decoration: line-through;
+  font-weight: 600;
+}
+
+.item-price {
+  font-weight: 800;
+  color: #111;
+}
+
 .apply-coupon:hover {
   background: #000;
   color: #fff;
